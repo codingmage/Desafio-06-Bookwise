@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@phosphor-icons/react": "^2.0.9",
+    "@radix-ui/react-dialog": "^1.0.3",
+    "@radix-ui/react-navigation-menu": "^1.1.2",
     "@stitches/react": "^1.2.8",
     "@types/node": "18.15.13",
     "@types/react": "18.0.38",
@@ -16,6 +19,7 @@
     "eslint": "8.39.0",
     "eslint-config-next": "13.3.1",
     "next": "13.3.1",
+    "next-auth": "^4.22.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "5.0.4"

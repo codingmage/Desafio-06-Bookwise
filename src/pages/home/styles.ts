@@ -1,70 +1,148 @@
 import { styled } from '../../../stitches.config'
 
+export const Container = styled('div', {
+  display: 'flex',
+  height: '100vh',
+  gap: '5rem',
+})
+
 export const HomeContainer = styled('div', {
   display: 'flex',
-  alignItems: 'center',
-  height: '100vh',
-})
-
-export const ImageContainer = styled('div', {
-  display: 'flex',
-  overflow: 'hidden',
-  justifyContent: 'center',
-  alignItems: 'center',
-
-  '@media(max-width: 600px)': {
-    display: 'none',
-  },
-
-  img: {
-    margin: '$4',
-    alignSelf: 'center',
-  },
-})
-
-export const LoginContainer = styled('div', {
-  display: 'flex',
   flexDirection: 'column',
-  fontSize: '$lg',
-  fontWeight: '$bold',
-  marginLeft: '14rem',
-  width: '23rem',
-  color: '$gray200',
-
-  '@media(max-width: 600px)': {
-    marginLeft: 0,
-    flex: 'auto',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
 
   h2: {
-    color: '$gray100',
-  },
+    marginTop: '3rem',
+    display: 'flex',
+    alignItems: 'center',
+    lineHeight: '$base',
+    gap: '$2',
 
-  span: {
-    fontSize: '$md',
-    fontWeight: '$regular',
+    svg: {
+      color: '$green100',
+    },
   },
 })
 
-export const LoginTypeContainer = styled('div', {
+export const MainFeed = styled('main', {
+  marginTop: '3rem',
+  fontSize: '$sm',
+  display: 'flex',
+  gap: '5rem',
+})
+
+export const MostRecent = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  width: '38rem',
+  gap: '$5',
+})
+
+export const BookReview = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  backgroundColor: '$gray600',
+  padding: '$6',
+  borderRadius: '$md',
+  border: '1px solid $black',
+  flexGrow: 2,
+})
+
+export const ReviewInfo = styled('header', {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '$4',
+  marginBottom: '$5',
+
+  img: {
+    borderRadius: '$full',
+  },
+
+  div: {
+    display: 'flex',
+    flexDirection: 'column',
+    flexGrow: '2',
+    gap: '$1',
+  },
+})
+
+export const Complement = styled('span', {
+  fontSize: '$sm',
+  color: '$gray400',
+})
+
+export const ReviewContent = styled('div', {
+  display: 'flex',
+  gap: '$5',
+
+  img: {
+    borderRadius: '$sm',
+  },
+})
+
+export const Review = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: '$4',
-  marginTop: '$4',
+  textAlign: 'justify',
+
+  div: {
+    display: 'flex',
+    flexDirection: 'column',
+
+    span: {
+      fontSize: '$sm',
+      color: '$gray400',
+    },
+  },
 })
 
-export const LoginType = styled('button', {
-  all: 'unset',
-  backgroundColor: '$gray600',
-  padding: '$5 $6',
-  maxWidth: '23.25rem',
-  borderRadius: '8px',
+export const MostPopular = styled('div', {
   display: 'flex',
-  alignItems: 'center',
-  flexGrow: 0,
+  flexDirection: 'column',
+  gap: '$2',
+})
+
+export const PopularHeader = styled('div', {
+  display: 'flex',
+  justifyContent: 'space-between',
+  lineHeight: '$short',
+
+  button: {
+    all: 'unset',
+    display: 'flex',
+    cursor: 'pointer',
+    alignItems: 'center',
+    fontWeight: '$bold',
+    color: '$purple100',
+  },
+})
+
+export const BookBox = styled('div', {
+  backgroundColor: '$gray600',
+  borderRadius: '$md',
+  border: '1px solid $black',
+  maxWidth: '20rem',
+  padding: '$6',
+
+  display: 'flex',
   gap: '$4',
-  fontSize: '$lg',
-  cursor: 'pointer',
+
+  img: {
+    borderRadius: '$sm',
+  },
+})
+
+export const BookInfo = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+
+  'div span': {
+    color: '$gray400',
+  },
+})
+
+export const Rating = styled('span', {
+  color: '$purple100',
+  fontSize: '$md',
 })

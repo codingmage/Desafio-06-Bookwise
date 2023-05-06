@@ -1,55 +1,256 @@
 import {
+  BookBox,
+  PopularHeader,
+  BookReview,
+  Container,
   HomeContainer,
-  ImageContainer,
-  LoginContainer,
-  LoginType,
-  LoginTypeContainer,
+  MainFeed,
+  MostPopular,
+  MostRecent,
+  ReviewContent,
+  ReviewInfo,
+  Complement,
+  Review,
+  BookInfo,
+  Rating,
 } from './styles'
 import Image from 'next/image'
-import GoogleLogo from '../../assets/logos_google-icon.svg'
-import bookwiseImage from '../../assets/bookwise.png'
-import GithubLogo from '../../assets/github-fill.svg'
-import Rocket from '../../assets/RocketLaunch.svg'
+import Link from 'next/link'
+import { CaretRight, ChartLineUp, Star } from '@phosphor-icons/react'
+import Sidebar from '../components/Sidebar'
+import Avatar from '../../assets/teste.jpg'
 
 export default function Home() {
+  // use navlink / link?
+  // radix or mui for components
+  // ver ignite feed pro comentário?
+
+  /*   const isLoggedIn = false */
+
   return (
-    <HomeContainer>
-      <ImageContainer>
-        <Image
-          src={bookwiseImage}
-          quality={100}
-          height={810}
-          width={580}
-          priority
-          alt="Logo do site sobre uma imagem de uma pessoa lendo um livro."
-        />
-      </ImageContainer>
-      <LoginContainer>
-        <h2>Boas vindas!</h2>
-        <span>Faça seu login ou acesse como visitante.</span>
-        <LoginTypeContainer>
-          <LoginType>
-            <Image
-              src={GoogleLogo}
-              height={32}
-              alt="Logomarca da empresa Google"
-            />
-            Entrar com Google
-          </LoginType>
-          <LoginType>
-            <Image
-              src={GithubLogo}
-              height={32}
-              alt="Logomarca da empresa Google"
-            />
-            Entrar com Github
-          </LoginType>
-          <LoginType>
-            <Image src={Rocket} height={32} alt="Logomarca da empresa Google" />
-            Acessar como visitante
-          </LoginType>
-        </LoginTypeContainer>
-      </LoginContainer>
-    </HomeContainer>
+    <Container>
+      <Sidebar />
+      <HomeContainer>
+        <h2>
+          <ChartLineUp size={32} /> Início
+        </h2>
+        <MainFeed>
+          <MostRecent>
+            {/* {isLoggedIn ? <span>Sua última leitura</span> : null} */}
+            <span>Avaliações mais recentes</span>
+            <BookReview>
+              <ReviewInfo>
+                <Image src={Avatar} alt="Avatar do autor" width={52} />
+                <div>
+                  <span>Jean Fellipe</span>
+                  <Complement>Hoje</Complement>
+                </div>
+                <Rating>
+                  <Star />
+                  <Star />
+                  <Star />
+                  <Star />
+                  <Star />
+                </Rating>
+              </ReviewInfo>
+              <ReviewContent>
+                <Image
+                  src={Avatar}
+                  width={108}
+                  height={152}
+                  alt="Capa do livro"
+                />
+                <Review>
+                  <div>
+                    <h4>O Conde de Monte Cristo</h4>
+                    <span>Alexandre Dumas</span>
+                  </div>
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                  Saepe vel provident beatae at mollitia, tenetur corrupti
+                  accusantium, rerum ut neque perspiciatis, eligendi blanditiis
+                  iusto adipisci. Maxime et non ab dignissimos!
+                </Review>
+              </ReviewContent>
+            </BookReview>
+            <BookReview>
+              <ReviewInfo>
+                <Image src={Avatar} alt="Avatar do autor" width={52} />
+                <div>
+                  <span>Jean Fellipe</span>
+                  <Complement>Hoje</Complement>
+                </div>
+                <Rating>
+                  <Star />
+                  <Star />
+                  <Star />
+                  <Star />
+                  <Star />
+                </Rating>
+              </ReviewInfo>
+              <ReviewContent>
+                <Image
+                  src={Avatar}
+                  width={108}
+                  height={152}
+                  alt="Capa do livro"
+                />
+                <Review>
+                  <div>
+                    <h4>O Conde de Monte Cristo</h4>
+                    <span>Alexandre Dumas</span>
+                  </div>
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                  Saepe vel provident beatae at mollitia, tenetur corrupti
+                  accusantium, rerum ut neque perspiciatis, eligendi blanditiis
+                  iusto adipisci. Maxime et non ab dignissimos!
+                </Review>
+              </ReviewContent>
+            </BookReview>
+            <BookReview>
+              <ReviewInfo>
+                <Image src={Avatar} alt="Avatar do autor" width={52} />
+                <div>
+                  <span>Jean Fellipe</span>
+                  <Complement>Hoje</Complement>
+                </div>
+                <Rating>
+                  <Star />
+                  <Star />
+                  <Star />
+                  <Star />
+                  <Star />
+                </Rating>
+              </ReviewInfo>
+              <ReviewContent>
+                <Image
+                  src={Avatar}
+                  width={108}
+                  height={152}
+                  alt="Capa do livro"
+                />
+                <Review>
+                  <div>
+                    <h4>O Conde de Monte Cristo</h4>
+                    <span>Alexandre Dumas</span>
+                  </div>
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                  Saepe vel provident beatae at mollitia, tenetur corrupti
+                  accusantium, rerum ut neque perspiciatis, eligendi blanditiis
+                  iusto adipisci. Maxime et non ab dignissimos!
+                </Review>
+              </ReviewContent>
+            </BookReview>
+            <BookReview>
+              <ReviewInfo>
+                <Image src={Avatar} alt="Avatar do autor" width={52} />
+                <div>
+                  <span>Jean Fellipe</span>
+                  <Complement>Hoje</Complement>
+                </div>
+                <Rating>
+                  <Star />
+                  <Star />
+                  <Star />
+                  <Star />
+                  <Star />
+                </Rating>
+              </ReviewInfo>
+              <ReviewContent>
+                <Image
+                  src={Avatar}
+                  width={108}
+                  height={152}
+                  alt="Capa do livro"
+                />
+                <Review>
+                  <div>
+                    <h4>O Conde de Monte Cristo</h4>
+                    <span>Alexandre Dumas</span>
+                  </div>
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                  Saepe vel provident beatae at mollitia, tenetur corrupti
+                  accusantium, rerum ut neque perspiciatis, eligendi blanditiis
+                  iusto adipisci. Maxime et non ab dignissimos!
+                </Review>
+              </ReviewContent>
+            </BookReview>
+            {/* clamplines or react-show-more-text for read more */}
+          </MostRecent>
+          <MostPopular>
+            <PopularHeader>
+              <span>Livros populares</span>
+              <button>
+                Ver todos <CaretRight />
+              </button>
+            </PopularHeader>
+
+            <BookBox>
+              <Image src={Avatar} width={64} height={94} alt="Capa do livro" />
+              <BookInfo>
+                <div>
+                  <h4>O Conde de Monte Cristo</h4>
+                  <span>Alexandre Dumas</span>
+                </div>
+                <Rating>
+                  <Star />
+                  <Star />
+                  <Star />
+                  <Star />
+                  <Star />
+                </Rating>
+              </BookInfo>
+            </BookBox>
+            <BookBox>
+              <Image src={Avatar} width={64} height={94} alt="Capa do livro" />
+              <BookInfo>
+                <div>
+                  <h4>O Conde de Monte Cristo</h4>
+                  <span>Alexandre Dumas</span>
+                </div>
+                <Rating>
+                  <Star />
+                  <Star />
+                  <Star />
+                  <Star />
+                  <Star />
+                </Rating>
+              </BookInfo>
+            </BookBox>
+            <BookBox>
+              <Image src={Avatar} width={64} height={94} alt="Capa do livro" />
+              <BookInfo>
+                <div>
+                  <h4>O Conde de Monte Cristo</h4>
+                  <span>Alexandre Dumas</span>
+                </div>
+                <Rating>
+                  <Star />
+                  <Star />
+                  <Star />
+                  <Star />
+                  <Star />
+                </Rating>
+              </BookInfo>
+            </BookBox>
+            <BookBox>
+              <Image src={Avatar} width={64} height={94} alt="Capa do livro" />
+              <BookInfo>
+                <div>
+                  <h4>O Conde de Monte Cristo</h4>
+                  <span>Alexandre Dumas</span>
+                </div>
+                <Rating>
+                  <Star />
+                  <Star />
+                  <Star />
+                  <Star />
+                  <Star />
+                </Rating>
+              </BookInfo>
+            </BookBox>
+          </MostPopular>
+        </MainFeed>
+      </HomeContainer>
+    </Container>
   )
 }

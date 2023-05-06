@@ -9,7 +9,6 @@ const nunito = Nunito({ subsets: ['latin'] })
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <div className={`${nunito.className}`}>
-      {/* <div className={`${Nunito.variable}`}> */}
       <Component {...pageProps} />
     </div>
   )
