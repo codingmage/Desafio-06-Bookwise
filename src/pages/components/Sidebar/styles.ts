@@ -47,7 +47,11 @@ export const NavList = styled('ul', {
   /* border: '1px solid blue', */
 
   li: {
-    lineHeight: '$shorter',
+    borderLeft: '4px solid transparent',
+    boxSizing: 'border-box',
+  },
+
+  '.active': {
     borderLeft: '4px solid #c3bbfa',
   },
 
@@ -120,4 +124,16 @@ export const DialogLogin = styled('button', {
 export const Description = styled(DialogDescription, {
   alignSelf: 'center',
   marginBottom: '$3',
+})
+
+export const GoToLogin = styled('button', {
+  all: 'unset',
+  display: 'flex',
+  alignItems: 'center',
+  gap: '$1',
+  cursor: 'pointer',
+
+  svg: {
+    color: '$green100',
+  },
 })

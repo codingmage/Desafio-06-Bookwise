@@ -45,6 +45,10 @@ export const BookReview = styled('div', {
   borderRadius: '$md',
   border: '1px solid $black',
   flexGrow: 2,
+
+  '&:hover': {
+    border: '1px solid $purple100',
+  },
 })
 
 export const ReviewInfo = styled('header', {

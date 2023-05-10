@@ -8,6 +8,7 @@ import {
   Navbar,
   SidebarContainer,
   Description,
+  GoToLogin,
 } from './styles'
 import bookwiseLogo from '../../../assets/BookwiseLogo.svg'
 import Image from 'next/image'
@@ -45,23 +46,23 @@ export default function Sidebar() {
         />
         <Navbar>
           <NavList>
-            <li>
+            <li className={router.pathname === '/' ? 'active' : ''}>
               <Link href="/">
-                <ChartLineUp />
+                <ChartLineUp size={24} />
                 Início
               </Link>
             </li>
-            <li>
-              <Link href="/about">
-                <Binoculars />
+            <li className={router.pathname === '/explore' ? 'active' : ''}>
+              <Link href="/explore">
+                <Binoculars size={24} />
                 Explorar
               </Link>
             </li>
 
             {isLoggedIn && (
-              <li>
+              <li className={router.pathname === '/profile' ? 'active' : ''}>
                 <Link href="/blog/hello-world">
-                  <User />
+                  <User size={24} />
                   Perfil
                 </Link>
               </li>
@@ -77,9 +78,9 @@ export default function Sidebar() {
           ) : (
             <Dialog.Root>
               <Dialog.Trigger asChild>
-                <button>
-                  Fazer login <SignIn />
-                </button>
+                <GoToLogin>
+                  Fazer login <SignIn size={22} />
+                </GoToLogin>
               </Dialog.Trigger>
               <Dialog.Portal>
                 <ModalOverlay />

@@ -15,10 +15,11 @@ import {
   Rating,
 } from './styles'
 import Image from 'next/image'
-import Link from 'next/link'
+/* import Link from 'next/link' */
 import { CaretRight, ChartLineUp, Star } from '@phosphor-icons/react'
 import Sidebar from '../components/Sidebar'
 import Avatar from '../../assets/teste.jpg'
+import { BookBoxComponent } from '../components/BookBox'
 
 export default function Home() {
   // use navlink / link?
@@ -183,71 +184,11 @@ export default function Home() {
                 Ver todos <CaretRight />
               </button>
             </PopularHeader>
-
-            <BookBox>
-              <Image src={Avatar} width={64} height={94} alt="Capa do livro" />
-              <BookInfo>
-                <div>
-                  <h4>O Conde de Monte Cristo</h4>
-                  <span>Alexandre Dumas</span>
-                </div>
-                <Rating>
-                  <Star />
-                  <Star />
-                  <Star />
-                  <Star />
-                  <Star />
-                </Rating>
-              </BookInfo>
-            </BookBox>
-            <BookBox>
-              <Image src={Avatar} width={64} height={94} alt="Capa do livro" />
-              <BookInfo>
-                <div>
-                  <h4>O Conde de Monte Cristo</h4>
-                  <span>Alexandre Dumas</span>
-                </div>
-                <Rating>
-                  <Star />
-                  <Star />
-                  <Star />
-                  <Star />
-                  <Star />
-                </Rating>
-              </BookInfo>
-            </BookBox>
-            <BookBox>
-              <Image src={Avatar} width={64} height={94} alt="Capa do livro" />
-              <BookInfo>
-                <div>
-                  <h4>O Conde de Monte Cristo</h4>
-                  <span>Alexandre Dumas</span>
-                </div>
-                <Rating>
-                  <Star />
-                  <Star />
-                  <Star />
-                  <Star />
-                  <Star />
-                </Rating>
-              </BookInfo>
-            </BookBox>
-            <BookBox>
-              <Image src={Avatar} width={64} height={94} alt="Capa do livro" />
-              <BookInfo>
-                <div>
-                  <h4>O Conde de Monte Cristo</h4>
-                  <span>Alexandre Dumas</span>
-                </div>
-                <Rating>
-                  <Star />
-                  <Star />
-                  <Star />
-                  <Star />
-                  <Star />
-                </Rating>
-              </BookInfo>
-            </BookBox>
+            <BookBoxComponent type="medium" />
+            <BookBoxComponent type="medium" />
+            <BookBoxComponent type="medium" />
+            <BookBoxComponent type="medium" />
+            <BookBoxComponent type="medium" />
           </MostPopular>
         </MainFeed>
       </HomeContainer>
