@@ -1,7 +1,6 @@
-import { Binoculars, MagnifyingGlass, Star } from '@phosphor-icons/react'
+import { Binoculars, MagnifyingGlass } from '@phosphor-icons/react'
 import Sidebar from '../components/Sidebar'
 import {
-  BookBox,
   BookList,
   BookListContainer,
   Container,
@@ -11,8 +10,6 @@ import {
   Tag,
   TagContainer,
 } from './style'
-import Avatar from '../../assets/teste.jpg'
-import Image from 'next/image'
 import { BookBoxComponent } from '../components/BookBox'
 
 export default function Explore() {
@@ -57,7 +54,7 @@ export default function Explore() {
 
         <BookListContainer>
           <BookList>
-            <BookBoxComponent type="big" />
+            <BookBoxComponent type="medium" />
             {/*             <BookBoxComponent type="medium" />
             <BookBoxComponent type="medium" />
             <BookBoxComponent type="medium" />

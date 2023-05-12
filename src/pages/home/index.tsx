@@ -1,5 +1,4 @@
 import {
-  BookBox,
   PopularHeader,
   BookReview,
   Container,
@@ -11,7 +10,6 @@ import {
   ReviewInfo,
   Complement,
   Review,
-  BookInfo,
   Rating,
 } from './styles'
 import Image from 'next/image'
