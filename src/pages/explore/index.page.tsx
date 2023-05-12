@@ -57,13 +57,13 @@ export default function Explore() {
 
         <BookListContainer>
           <BookList>
+            <BookBoxComponent type="big" />
+            {/*             <BookBoxComponent type="medium" />
             <BookBoxComponent type="medium" />
             <BookBoxComponent type="medium" />
             <BookBoxComponent type="medium" />
             <BookBoxComponent type="medium" />
-            <BookBoxComponent type="medium" />
-            <BookBoxComponent type="medium" />
-            <BookBoxComponent type="medium" />
+            <BookBoxComponent type="medium" /> */}
             {/*            <BookBox>
               <Image src={Avatar} height={64} width={64} alt="Capa do livro" />
               <div>
