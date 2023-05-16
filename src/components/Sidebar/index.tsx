@@ -1,13 +1,8 @@
 import {
-  CloseButton,
-  Content,
   Container,
-  DialogLogin,
-  ModalOverlay,
   NavList,
   Navbar,
   SidebarContainer,
-  Description,
   GoToLogin,
   LoggedInUser,
 } from './styles'
@@ -20,13 +15,8 @@ import {
   SignIn,
   SignOut,
   User,
-  X,
 } from '@phosphor-icons/react'
-import * as Dialog from '@radix-ui/react-dialog'
-import GoogleLogo from '../../assets/logos_google-icon.svg'
-import GithubLogo from '../../assets/github-fill.svg'
 import { useRouter } from 'next/router'
-import AvatarExample from '../../assets/teste.jpg'
 import { Avatar } from '../Avatar'
 
 export default function Sidebar() {
@@ -80,42 +70,9 @@ export default function Sidebar() {
               </button>
             </LoggedInUser>
           ) : (
-            <Dialog.Root>
-              <Dialog.Trigger asChild>
-                <GoToLogin>
-                  Fazer login <SignIn size={22} />
-                </GoToLogin>
-              </Dialog.Trigger>
-              <Dialog.Portal>
-                <ModalOverlay />
-                <Content>
-                  <Dialog.Close asChild>
-                    <CloseButton>
-                      <X />
-                    </CloseButton>
-                  </Dialog.Close>
-                  <Description>
-                    Faça login para deixar sua avaliação.
-                  </Description>
-                  <DialogLogin>
-                    <Image
-                      src={GoogleLogo}
-                      height={32}
-                      alt="Logomarca da Google"
-                    />
-                    Entrar com Google
-                  </DialogLogin>
-                  <DialogLogin>
-                    <Image
-                      src={GithubLogo}
-                      height={32}
-                      alt="Logomarca do Github"
-                    />
-                    Entrar com Github
-                  </DialogLogin>
-                </Content>
-              </Dialog.Portal>
-            </Dialog.Root>
+            <GoToLogin href={'/login'}>
+              Fazer login <SignIn size={22} />
+            </GoToLogin>
           )}
         </Navbar>
       </SidebarContainer>

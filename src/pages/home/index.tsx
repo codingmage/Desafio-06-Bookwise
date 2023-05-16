@@ -1,21 +1,14 @@
 import {
   PopularHeader,
-  BookReview,
   Container,
   HomeContainer,
   MainFeed,
   MostPopular,
   MostRecent,
-  ReviewContent,
-  ReviewInfo,
-  Complement,
-  Rating,
 } from './styles'
-import Image from 'next/image'
 /* import Link from 'next/link' */
-import { CaretRight, ChartLineUp, Star } from '@phosphor-icons/react'
+import { CaretRight, ChartLineUp } from '@phosphor-icons/react'
 import Sidebar from '../../components/Sidebar'
-import Avatar from '../../assets/teste.jpg'
 import { BookBoxComponent } from '../../components/BookBox'
 import { Review } from '@/components/Review'
 

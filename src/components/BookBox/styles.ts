@@ -1,4 +1,8 @@
-import { DialogContent, DialogOverlay } from '@radix-ui/react-dialog'
+import {
+  DialogContent,
+  DialogDescription,
+  DialogOverlay,
+} from '@radix-ui/react-dialog'
 import { styled } from '../../../stitches.config'
 
 export const BookBoxTeste = styled('div', {
@@ -136,6 +140,18 @@ export const BookBoxContainer = styled('div', {
   borderRadius: '$md',
 })
 
+export const ReviewHead = styled('div', {
+  display: 'flex',
+  justifyContent: 'space-between',
+})
+
+export const ReviewList = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+
+  gap: '$2',
+})
+
 export const ModalOverlay = styled(DialogOverlay, {
   position: 'sticky',
   width: '100vw',
@@ -176,14 +192,151 @@ export const Content = styled(DialogContent, {
   overflowY: 'auto',
 })
 
-export const ReviewHead = styled('div', {
-  display: 'flex',
-  justifyContent: 'space-between',
-})
+export const LoginContent = styled(DialogContent, {
+  backgroundColor: '$gray700',
+  borderRadius: 6,
+  boxShadow: '10 5 5 black',
+  position: 'fixed',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '90vw',
+  maxWidth: 450,
+  maxHeight: '85vh',
+  padding: '$10',
 
-export const ReviewList = styled('div', {
+  fontFamily: '$default',
+  fontSize: '$sm',
+  color: '$gray200',
+
   display: 'flex',
   flexDirection: 'column',
+  gap: '$4',
+})
 
+export const GoToLogin = styled('button', {
+  all: 'unset',
+  display: 'flex',
+  alignItems: 'center',
+  gap: '$1',
+  cursor: 'pointer',
+
+  span: {
+    color: '$purple100',
+  },
+
+  svg: {
+    color: '$green100',
+  },
+})
+
+export const DialogLogin = styled('button', {
+  all: 'unset',
+  backgroundColor: '$gray600',
+  padding: '$3 $4',
+  maxWidth: '23.25rem',
+  borderRadius: '8px',
+  display: 'flex',
+  alignItems: 'center',
+  flexGrow: 0,
+  gap: '$4',
+  fontSize: '$lg',
+  fontWeight: '$bold',
+  cursor: 'pointer',
+})
+
+export const Description = styled(DialogDescription, {
+  alignSelf: 'center',
+  marginBottom: '$3',
+})
+
+export const FormContainer = styled('div', {
+  backgroundColor: '$gray600',
+  display: 'flex',
+  width: '100%',
+  flexDirection: 'column',
+  padding: '$6',
+  borderRadius: '$md',
+  border: '1px solid $black',
+  marginTop: '$4',
+})
+
+export const FormHeader = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  marginBottom: '$4',
+
+  div: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '$2',
+  },
+
+  'div span': {
+    fontSize: '$md',
+    fontFamily: '$default',
+  },
+})
+
+export const UserReviewText = styled('textarea', {
+  backgroundColor: '$gray800',
+  padding: '$3 $4',
+  borderRadius: '$sm',
+  boxSizing: 'border-box',
+  border: '2px solid $gray700',
+  fontSize: '$md',
+  fontFamily: '$default',
+  color: '$white',
+  resize: 'none',
+  minHeight: 80,
+  height: '10rem',
+
+  '&:focus': {
+    outline: 0,
+    borderColor: '$green100',
+  },
+
+  '&:disabled': {
+    opacity: 0.5,
+    cursor: 'not-allowed',
+  },
+
+  '&:placeholder': {
+    color: '$gray400',
+  },
+})
+
+export const FormButtonContainer = styled('div', {
+  display: 'flex',
+  justifyContent: 'flex-end',
   gap: '$2',
+  marginTop: '$2',
+})
+
+export const FormButton = styled('button', {
+  all: 'unset',
+  backgroundColor: '$gray500',
+  cursor: 'pointer',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  border: '1px solid $black',
+  borderRadius: '$sm',
+  padding: '$2',
+
+  '&:hover': {
+    backgroundColor: '#3f5399',
+  },
+
+  variants: {
+    buttonType: {
+      cancel: {
+        color: '$black',
+      },
+      confirm: {
+        color: '$green100',
+      },
+    },
+  },
 })

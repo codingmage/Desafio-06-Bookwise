@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { styled } from '../../../stitches.config'
 
 export const WelcomeContainer = styled('div', {
@@ -55,8 +56,9 @@ export const LoginTypeContainer = styled('div', {
   marginTop: '$4',
 })
 
-export const LoginType = styled('button', {
-  all: 'unset',
+export const LoginType = styled(Link, {
+  textDecoration: 'none',
+  color: '$gray200',
   backgroundColor: '$gray600',
   padding: '$5 $6',
   maxWidth: '23.25rem',

@@ -4,6 +4,7 @@ import {
   DialogOverlay,
 } from '@radix-ui/react-dialog'
 import { styled } from '../../../stitches.config'
+import Link from 'next/link'
 
 export const Container = styled('div', {
   display: 'flex',
@@ -75,6 +76,15 @@ export const ModalOverlay = styled(DialogOverlay, {
   backgroundColor: 'hsla(0, 0%, 0%, 0.439)',
 })
 
+export const CloseButton = styled('button', {
+  all: 'unset',
+  position: 'absolute',
+  top: 10,
+  right: 10,
+  color: '$gray400',
+  cursor: 'pointer',
+})
+
 export const Content = styled(DialogContent, {
   backgroundColor: '$gray700',
   borderRadius: 6,
@@ -97,15 +107,6 @@ export const Content = styled(DialogContent, {
   gap: '$4',
 })
 
-export const CloseButton = styled('button', {
-  all: 'unset',
-  position: 'absolute',
-  top: 10,
-  right: 10,
-  color: '$gray400',
-  cursor: 'pointer',
-})
-
 export const DialogLogin = styled('button', {
   all: 'unset',
   backgroundColor: '$gray600',
@@ -126,7 +127,7 @@ export const Description = styled(DialogDescription, {
   marginBottom: '$3',
 })
 
-export const GoToLogin = styled('button', {
+export const GoToLogin = styled(Link, {
   all: 'unset',
   display: 'flex',
   alignItems: 'center',

@@ -13,9 +13,18 @@ import {
   ModalOverlay,
   ReviewHead,
   ReviewList,
+  GoToLogin,
+  Description,
+  DialogLogin,
+  LoginContent,
+  FormContainer,
+  UserReviewText,
+  FormHeader,
+  FormButtonContainer,
+  FormButton,
 } from './styles'
-import Avatar from '../../assets/teste.jpg'
-import { BookOpen, BookmarkSimple, Star, X } from '@phosphor-icons/react'
+import AvatarExample from '../../assets/teste.jpg'
+import { BookOpen, BookmarkSimple, Check, Star, X } from '@phosphor-icons/react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { ReactNode } from 'react'
 import {
@@ -25,6 +34,9 @@ import {
   ReviewInfo,
   ReviewText,
 } from '../Review/styles'
+import GoogleLogo from '../../assets/logos_google-icon.svg'
+import GithubLogo from '../../assets/github-fill.svg'
+import { Avatar } from '../Avatar'
 
 interface BookBoxProps {
   type: 'big' | 'small' | 'medium'
@@ -44,16 +56,28 @@ export function BookBoxComponent(
 
   /*   const fullBox = type === 'big' */
 
+  const isLoggedIn = true
+
   return (
     <BookBoxContainer>
       <Dialog.Root>
         <Dialog.Trigger asChild>
           <BookBox type={type}>
             {smallBox ? (
-              <Image src={Avatar} width={64} height={94} alt="Capa do livro" />
+              <Image
+                src={AvatarExample}
+                width={64}
+                height={94}
+                alt="Capa do livro"
+              />
             ) : null}
             {mediumBox ? (
-              <Image src={Avatar} width={74} height={104} alt="Capa do livro" />
+              <Image
+                src={AvatarExample}
+                width={74}
+                height={104}
+                alt="Capa do livro"
+              />
             ) : null}
             <BookInfo>
               <div>
@@ -83,7 +107,7 @@ export function BookBoxComponent(
             <BookBoxContainer>
               <BookBox type={'big'}>
                 <Image
-                  src={Avatar}
+                  src={AvatarExample}
                   width={172}
                   height={242}
                   alt="Capa do livro"
@@ -121,14 +145,83 @@ export function BookBoxComponent(
                 </BookDetails>
               </ExtraBoxContainer>
             </BookBoxContainer>
-            <ReviewHead>
-              <h4>Avaliações</h4>
-              <span>Avaliar</span>
-            </ReviewHead>
+
+            {isLoggedIn ? (
+              <div>
+                <h4>Avaliações</h4>
+                <FormContainer as="form">
+                  <FormHeader>
+                    <div>
+                      <Avatar size="medium" />
+                      <span>Jean Fellipe</span>
+                    </div>
+                    <Rating>
+                      <Star size={30} />
+                      <Star size={30} />
+                      <Star size={30} />
+                      <Star size={30} />
+                      <Star size={30} />
+                    </Rating>
+                  </FormHeader>
+                  <UserReviewText
+                    placeholder="Escreva sua avaliação"
+                    maxLength={450}
+                  />
+                  <FormButtonContainer>
+                    <FormButton buttonType={'cancel'}>
+                      <X size={24} />
+                    </FormButton>
+                    <FormButton buttonType={'confirm'}>
+                      <Check size={24} />
+                    </FormButton>
+                  </FormButtonContainer>
+                </FormContainer>
+              </div>
+            ) : (
+              <ReviewHead>
+                <h4>Avaliações</h4>
+                <Dialog.Root>
+                  <Dialog.Trigger asChild>
+                    <GoToLogin>
+                      <span>Avaliar</span>
+                    </GoToLogin>
+                  </Dialog.Trigger>
+                  <Dialog.Portal>
+                    <ModalOverlay />
+                    <LoginContent>
+                      <Dialog.Close asChild>
+                        <CloseButton>
+                          <X />
+                        </CloseButton>
+                      </Dialog.Close>
+                      <Description>
+                        Faça login para deixar sua avaliação.
+                      </Description>
+                      <DialogLogin>
+                        <Image
+                          src={GoogleLogo}
+                          height={32}
+                          alt="Logomarca da Google"
+                        />
+                        Entrar com Google
+                      </DialogLogin>
+                      <DialogLogin>
+                        <Image
+                          src={GithubLogo}
+                          height={32}
+                          alt="Logomarca do Github"
+                        />
+                        Entrar com Github
+                      </DialogLogin>
+                    </LoginContent>
+                  </Dialog.Portal>
+                </Dialog.Root>
+              </ReviewHead>
+            )}
             <ReviewList>
               <BookReview>
                 <ReviewInfo>
-                  <Image src={Avatar} alt="Avatar do autor" width={52} />
+                  <Image src={AvatarExample} alt="Avatar do autor" width={52} />
                   <div>
                     <span>Jean Fellipe</span>
                     <Complement>Hoje</Complement>
@@ -152,7 +245,7 @@ export function BookBoxComponent(
               </BookReview>
               <BookReview>
                 <ReviewInfo>
-                  <Image src={Avatar} alt="Avatar do autor" width={52} />
+                  <Image src={AvatarExample} alt="Avatar do autor" width={52} />
                   <div>
                     <span>Jean Fellipe</span>
                     <Complement>Hoje</Complement>
@@ -176,7 +269,7 @@ export function BookBoxComponent(
               </BookReview>
               <BookReview>
                 <ReviewInfo>
-                  <Image src={Avatar} alt="Avatar do autor" width={52} />
+                  <Image src={AvatarExample} alt="Avatar do autor" width={52} />
                   <div>
                     <span>Jean Fellipe</span>
                     <Complement>Hoje</Complement>
@@ -200,7 +293,7 @@ export function BookBoxComponent(
               </BookReview>
               <BookReview>
                 <ReviewInfo>
-                  <Image src={Avatar} alt="Avatar do autor" width={52} />
+                  <Image src={AvatarExample} alt="Avatar do autor" width={52} />
                   <div>
                     <span>Jean Fellipe</span>
                     <Complement>Hoje</Complement>
