@@ -9,8 +9,9 @@ import {
   SidebarContainer,
   Description,
   GoToLogin,
+  LoggedInUser,
 } from './styles'
-import bookwiseLogo from '../../../assets/BookwiseLogo.svg'
+import bookwiseLogo from '../../assets/BookwiseLogo.svg'
 import Image from 'next/image'
 import Link from 'next/link'
 import {
@@ -22,12 +23,14 @@ import {
   X,
 } from '@phosphor-icons/react'
 import * as Dialog from '@radix-ui/react-dialog'
-import GoogleLogo from '../../../assets/logos_google-icon.svg'
-import GithubLogo from '../../../assets/github-fill.svg'
+import GoogleLogo from '../../assets/logos_google-icon.svg'
+import GithubLogo from '../../assets/github-fill.svg'
 import { useRouter } from 'next/router'
+import AvatarExample from '../../assets/teste.jpg'
+import { Avatar } from '../Avatar'
 
 export default function Sidebar() {
-  const isLoggedIn = false
+  const isLoggedIn = true
 
   // use navlink / link?
   // radix or mui for components
@@ -61,7 +64,7 @@ export default function Sidebar() {
 
             {isLoggedIn && (
               <li className={router.pathname === '/profile' ? 'active' : ''}>
-                <Link href="/blog/hello-world">
+                <Link href="/profile">
                   <User size={24} />
                   Perfil
                 </Link>
@@ -69,12 +72,13 @@ export default function Sidebar() {
             )}
           </NavList>
           {isLoggedIn ? (
-            <span>
-              Nome do usuário
+            <LoggedInUser>
+              <Avatar size="small" />
+              <span>Jean Fellipe</span>
               <button>
-                <SignOut fill="red" />
+                <SignOut size={24} />
               </button>
-            </span>
+            </LoggedInUser>
           ) : (
             <Dialog.Root>
               <Dialog.Trigger asChild>

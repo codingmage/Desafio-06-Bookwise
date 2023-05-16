@@ -7,14 +7,15 @@ import {
   ReviewInfo,
   ReviewText,
 } from './styles'
-import Avatar from '../../../assets/teste.jpg'
 import { Star } from '@phosphor-icons/react'
+import { Avatar } from '../Avatar'
+import AvatarExample from '../../assets/teste.jpg'
 
 export function Review() {
   return (
     <BookReview>
       <ReviewInfo>
-        <Image src={Avatar} alt="Avatar do autor" width={52} />
+        <Avatar size="medium" />
         <div>
           <span>Jean Fellipe</span>
           <Complement>Hoje</Complement>
@@ -28,7 +29,12 @@ export function Review() {
         </Rating>
       </ReviewInfo>
       <ReviewContent>
-        <Image src={Avatar} width={108} height={152} alt="Capa do livro" />
+        <Image
+          src={AvatarExample}
+          width={108}
+          height={152}
+          alt="Capa do livro"
+        />
         <ReviewText>
           <div>
             <h4>O Conde de Monte Cristo</h4>

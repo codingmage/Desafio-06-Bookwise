@@ -1,5 +1,5 @@
 import { DialogContent, DialogOverlay } from '@radix-ui/react-dialog'
-import { styled } from '../../../../stitches.config'
+import { styled } from '../../../stitches.config'
 
 export const BookBoxTeste = styled('div', {
   fontWeight: '$bold',
@@ -157,7 +157,7 @@ export const Content = styled(DialogContent, {
   backgroundColor: '$gray700',
   borderRadius: 6,
   boxShadow: '10 5 5 black',
-  position: 'absolute',
+  position: 'fixed',
   top: '0',
   right: '0',
   /* transform: 'translate(-50%, -50%)', */
@@ -174,4 +174,16 @@ export const Content = styled(DialogContent, {
   gap: '$4',
 
   overflowY: 'auto',
+})
+
+export const ReviewHead = styled('div', {
+  display: 'flex',
+  justifyContent: 'space-between',
+})
+
+export const ReviewList = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+
+  gap: '$2',
 })

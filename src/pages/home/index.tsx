@@ -9,15 +9,15 @@ import {
   ReviewContent,
   ReviewInfo,
   Complement,
-  Review,
   Rating,
 } from './styles'
 import Image from 'next/image'
 /* import Link from 'next/link' */
 import { CaretRight, ChartLineUp, Star } from '@phosphor-icons/react'
-import Sidebar from '../components/Sidebar'
+import Sidebar from '../../components/Sidebar'
 import Avatar from '../../assets/teste.jpg'
-import { BookBoxComponent } from '../components/BookBox'
+import { BookBoxComponent } from '../../components/BookBox'
+import { Review } from '@/components/Review'
 
 export default function Home() {
   // use navlink / link?
@@ -37,142 +37,12 @@ export default function Home() {
           <MostRecent>
             {/* {isLoggedIn ? <span>Sua última leitura</span> : null} */}
             <span>Avaliações mais recentes</span>
-            <BookReview>
-              <ReviewInfo>
-                <Image src={Avatar} alt="Avatar do autor" width={52} />
-                <div>
-                  <span>Jean Fellipe</span>
-                  <Complement>Hoje</Complement>
-                </div>
-                <Rating>
-                  <Star />
-                  <Star />
-                  <Star />
-                  <Star />
-                  <Star />
-                </Rating>
-              </ReviewInfo>
-              <ReviewContent>
-                <Image
-                  src={Avatar}
-                  width={108}
-                  height={152}
-                  alt="Capa do livro"
-                />
-                <Review>
-                  <div>
-                    <h4>O Conde de Monte Cristo</h4>
-                    <span>Alexandre Dumas</span>
-                  </div>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Saepe vel provident beatae at mollitia, tenetur corrupti
-                  accusantium, rerum ut neque perspiciatis, eligendi blanditiis
-                  iusto adipisci. Maxime et non ab dignissimos!
-                </Review>
-              </ReviewContent>
-            </BookReview>
-            <BookReview>
-              <ReviewInfo>
-                <Image src={Avatar} alt="Avatar do autor" width={52} />
-                <div>
-                  <span>Jean Fellipe</span>
-                  <Complement>Hoje</Complement>
-                </div>
-                <Rating>
-                  <Star />
-                  <Star />
-                  <Star />
-                  <Star />
-                  <Star />
-                </Rating>
-              </ReviewInfo>
-              <ReviewContent>
-                <Image
-                  src={Avatar}
-                  width={108}
-                  height={152}
-                  alt="Capa do livro"
-                />
-                <Review>
-                  <div>
-                    <h4>O Conde de Monte Cristo</h4>
-                    <span>Alexandre Dumas</span>
-                  </div>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Saepe vel provident beatae at mollitia, tenetur corrupti
-                  accusantium, rerum ut neque perspiciatis, eligendi blanditiis
-                  iusto adipisci. Maxime et non ab dignissimos!
-                </Review>
-              </ReviewContent>
-            </BookReview>
-            <BookReview>
-              <ReviewInfo>
-                <Image src={Avatar} alt="Avatar do autor" width={52} />
-                <div>
-                  <span>Jean Fellipe</span>
-                  <Complement>Hoje</Complement>
-                </div>
-                <Rating>
-                  <Star />
-                  <Star />
-                  <Star />
-                  <Star />
-                  <Star />
-                </Rating>
-              </ReviewInfo>
-              <ReviewContent>
-                <Image
-                  src={Avatar}
-                  width={108}
-                  height={152}
-                  alt="Capa do livro"
-                />
-                <Review>
-                  <div>
-                    <h4>O Conde de Monte Cristo</h4>
-                    <span>Alexandre Dumas</span>
-                  </div>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Saepe vel provident beatae at mollitia, tenetur corrupti
-                  accusantium, rerum ut neque perspiciatis, eligendi blanditiis
-                  iusto adipisci. Maxime et non ab dignissimos!
-                </Review>
-              </ReviewContent>
-            </BookReview>
-            <BookReview>
-              <ReviewInfo>
-                <Image src={Avatar} alt="Avatar do autor" width={52} />
-                <div>
-                  <span>Jean Fellipe</span>
-                  <Complement>Hoje</Complement>
-                </div>
-                <Rating>
-                  <Star />
-                  <Star />
-                  <Star />
-                  <Star />
-                  <Star />
-                </Rating>
-              </ReviewInfo>
-              <ReviewContent>
-                <Image
-                  src={Avatar}
-                  width={108}
-                  height={152}
-                  alt="Capa do livro"
-                />
-                <Review>
-                  <div>
-                    <h4>O Conde de Monte Cristo</h4>
-                    <span>Alexandre Dumas</span>
-                  </div>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Saepe vel provident beatae at mollitia, tenetur corrupti
-                  accusantium, rerum ut neque perspiciatis, eligendi blanditiis
-                  iusto adipisci. Maxime et non ab dignissimos!
-                </Review>
-              </ReviewContent>
-            </BookReview>
+            <Review />
+            <Review />
+            <Review />
+            <Review />
+            <Review />
+            <Review />
             {/* clamplines or react-show-more-text for read more */}
           </MostRecent>
           <MostPopular>

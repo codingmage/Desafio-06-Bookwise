@@ -1,5 +1,5 @@
 import { Binoculars, MagnifyingGlass } from '@phosphor-icons/react'
-import Sidebar from '../components/Sidebar'
+import Sidebar from '../../components/Sidebar'
 import {
   BookList,
   BookListContainer,
@@ -9,8 +9,8 @@ import {
   SearchInputContainer,
   Tag,
   TagContainer,
-} from './style'
-import { BookBoxComponent } from '../components/BookBox'
+} from './styles'
+import { BookBoxComponent } from '../../components/BookBox'
 
 export default function Explore() {
   /* usestate for active button */

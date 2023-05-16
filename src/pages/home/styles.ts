@@ -83,7 +83,7 @@ export const ReviewContent = styled('div', {
   },
 })
 
-export const Review = styled('div', {
+/* export const Review = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: '$4',
@@ -98,7 +98,7 @@ export const Review = styled('div', {
       color: '$gray400',
     },
   },
-})
+}) */
 
 export const MostPopular = styled('div', {
   display: 'flex',

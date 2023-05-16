@@ -1,4 +1,4 @@
-import { styled } from '../../../../stitches.config'
+import { styled } from '../../../../../stitches.config'
 
 export const BookReview = styled('div', {
   display: 'flex',
@@ -8,36 +8,17 @@ export const BookReview = styled('div', {
   borderRadius: '$md',
   border: '1px solid $black',
   flexGrow: 2,
+  marginTop: '$3',
+  marginBottom: '$2',
 
   '&:hover': {
     border: '1px solid $purple100',
   },
+
+  gap: '$5',
 })
 
 export const ReviewInfo = styled('header', {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '$4',
-  marginBottom: '$5',
-
-  img: {
-    borderRadius: '$full',
-  },
-
-  div: {
-    display: 'flex',
-    flexDirection: 'column',
-    flexGrow: '2',
-    gap: '$1',
-  },
-})
-
-export const Complement = styled('span', {
-  fontSize: '$sm',
-  color: '$gray400',
-})
-
-export const ReviewContent = styled('div', {
   display: 'flex',
   gap: '$5',
 
@@ -46,9 +27,22 @@ export const ReviewContent = styled('div', {
   },
 })
 
-export const ReviewText = styled('div', {
+export const Date = styled('span', {
+  fontSize: '$sm',
+  color: '$gray400',
+})
+
+export const ReviewContent = styled('div', {
+  display: 'flex',
+  gap: '$5',
+  textAlign: 'justify',
+  color: '$gray300',
+})
+
+export const ReviewBook = styled('div', {
   display: 'flex',
   flexDirection: 'column',
+  justifyContent: 'space-between',
   gap: '$4',
   textAlign: 'justify',
 

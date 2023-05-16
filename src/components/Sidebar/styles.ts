@@ -3,7 +3,7 @@ import {
   DialogDescription,
   DialogOverlay,
 } from '@radix-ui/react-dialog'
-import { styled } from '../../../../stitches.config'
+import { styled } from '../../../stitches.config'
 
 export const Container = styled('div', {
   display: 'flex',
@@ -135,5 +135,26 @@ export const GoToLogin = styled('button', {
 
   svg: {
     color: '$green100',
+  },
+})
+
+export const LoggedInUser = styled('span', {
+  display: 'flex',
+  fontSize: '$sm',
+  minWidth: '10rem',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: '$2',
+
+  img: {
+    borderRadius: '$full',
+  },
+
+  button: {
+    all: 'unset',
+    display: 'flex',
+    cursor: 'pointer',
+    lineHeight: '$short',
+    color: '#cc4343',
   },
 })
