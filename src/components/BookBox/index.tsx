@@ -168,10 +168,10 @@ export function BookBoxComponent(
                     maxLength={450}
                   />
                   <FormButtonContainer>
-                    <FormButton buttonType={'cancel'}>
+                    <FormButton type="button" buttonType={'cancel'}>
                       <X size={24} />
                     </FormButton>
-                    <FormButton buttonType={'confirm'}>
+                    <FormButton type="submit" buttonType={'confirm'}>
                       <Check size={24} />
                     </FormButton>
                   </FormButtonContainer>
