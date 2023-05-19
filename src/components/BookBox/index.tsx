@@ -17,14 +17,9 @@ import {
   Description,
   DialogLogin,
   LoginContent,
-  FormContainer,
-  UserReviewText,
-  FormHeader,
-  FormButtonContainer,
-  FormButton,
 } from './styles'
 import AvatarExample from '../../assets/teste.jpg'
-import { BookOpen, BookmarkSimple, Check, Star, X } from '@phosphor-icons/react'
+import { BookOpen, BookmarkSimple, Star, X } from '@phosphor-icons/react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { ReactNode } from 'react'
 import {
@@ -36,20 +31,19 @@ import {
 } from '../Review/styles'
 import GoogleLogo from '../../assets/logos_google-icon.svg'
 import GithubLogo from '../../assets/github-fill.svg'
-import { Avatar } from '../Avatar'
+import { BookRating } from '../StarRating'
 
 interface BookBoxProps {
   type: 'big' | 'small' | 'medium'
+  UserReviewForm: ReactNode
+  StarRating: ReactNode
 }
 
-interface BookChildren {
-  reviews: ReactNode
-}
-
-export function BookBoxComponent(
-  { type }: BookBoxProps,
-  { reviews }: BookChildren,
-) {
+export function BookBoxComponent({
+  type,
+  UserReviewForm,
+  StarRating,
+}: BookBoxProps) {
   const smallBox = type === 'small'
 
   const mediumBox = type === 'medium'
@@ -86,13 +80,7 @@ export function BookBoxComponent(
                 </BookTitle>
                 <span>Alexandre Dumas</span>
               </div>
-              <Rating>
-                <Star />
-                <Star />
-                <Star />
-                <Star />
-                <Star />
-              </Rating>
+              <Rating>{StarRating}</Rating>
             </BookInfo>
           </BookBox>
         </Dialog.Trigger>
@@ -117,13 +105,13 @@ export function BookBoxComponent(
                     <h3>O Conde de Monte Cristo Abacaxi Banana Maça</h3>
                     <span>Alexandre Dumas</span>
                   </div>
-                  <Rating>
+                  {/*                   <Rating>
                     <Star />
                     <Star />
                     <Star />
                     <Star />
                     <Star />
-                  </Rating>
+                  </Rating> */}
                 </BookInfo>
               </BookBox>
               <ExtraBoxContainer>
@@ -149,33 +137,7 @@ export function BookBoxComponent(
             {isLoggedIn ? (
               <div>
                 <h4>Avaliações</h4>
-                <FormContainer as="form">
-                  <FormHeader>
-                    <div>
-                      <Avatar size="medium" />
-                      <span>Jean Fellipe</span>
-                    </div>
-                    <Rating>
-                      <Star size={30} />
-                      <Star size={30} />
-                      <Star size={30} />
-                      <Star size={30} />
-                      <Star size={30} />
-                    </Rating>
-                  </FormHeader>
-                  <UserReviewText
-                    placeholder="Escreva sua avaliação"
-                    maxLength={450}
-                  />
-                  <FormButtonContainer>
-                    <FormButton type="button" buttonType={'cancel'}>
-                      <X size={24} />
-                    </FormButton>
-                    <FormButton type="submit" buttonType={'confirm'}>
-                      <Check size={24} />
-                    </FormButton>
-                  </FormButtonContainer>
-                </FormContainer>
+                {UserReviewForm}
               </div>
             ) : (
               <ReviewHead>
