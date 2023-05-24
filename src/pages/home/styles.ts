@@ -103,7 +103,7 @@ export const ReviewContent = styled('div', {
 export const MostPopular = styled('div', {
   display: 'flex',
   flexDirection: 'column',
-  gap: '$2',
+  gap: '$3',
 })
 
 export const PopularHeader = styled('div', {

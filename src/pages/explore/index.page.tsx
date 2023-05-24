@@ -11,6 +11,7 @@ import {
   TagContainer,
 } from './styles'
 import { BookBoxComponent } from '../../components/BookBox'
+import { UserReviewForm } from '@/components/UserReviewForm'
 
 export default function Explore() {
   /* usestate for active button */
@@ -54,7 +55,10 @@ export default function Explore() {
 
         <BookListContainer>
           <BookList>
-            <BookBoxComponent type="medium" />
+            <BookBoxComponent
+              type="medium"
+              UserReviewForm={<UserReviewForm />}
+            />
             {/*             <BookBoxComponent type="medium" />
             <BookBoxComponent type="medium" />
             <BookBoxComponent type="medium" />

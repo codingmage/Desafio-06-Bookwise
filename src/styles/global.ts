@@ -1,3 +1,4 @@
+import { RoundedStar } from '@smastrom/react-rating'
 import { globalCss } from '@stitches/react'
 
 export const globalStyles = globalCss({
@@ -13,3 +14,9 @@ export const globalStyles = globalCss({
     '-webkit-font-smoothing': 'antialiased',
   },
 })
+
+export const customStyles = {
+  itemShapes: RoundedStar,
+  activeFillColor: '#8381D9',
+  inactiveFillColor: '#c6c5eb',
+}

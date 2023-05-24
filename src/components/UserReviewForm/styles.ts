@@ -1,6 +1,6 @@
 import { styled } from '../../../stitches.config'
 
-export const Rating = styled('span', {
+export const RatingStars = styled('span', {
   color: '$purple100',
   fontSize: '$md',
 })
@@ -32,6 +32,10 @@ export const FormHeader = styled('div', {
     fontSize: '$md',
     fontFamily: '$default',
   },
+
+  '.starStyle': {
+    gap: '$1',
+  },
 })
 
 export const UserReviewText = styled('textarea', {
@@ -62,8 +66,22 @@ export const UserReviewText = styled('textarea', {
   },
 })
 
+export const FormFooter = styled('footer', {
+  display: 'flex',
+  justifyContent: 'space-between',
+  width: '100%',
+  alignItems: 'center',
+
+  span: {
+    color: '$gray400',
+    marginTop: '$2',
+    marginLeft: '$1',
+  },
+})
+
 export const FormButtonContainer = styled('div', {
   display: 'flex',
+  flexDirection: 'row',
   justifyContent: 'flex-end',
   gap: '$2',
   marginTop: '$2',
@@ -82,6 +100,11 @@ export const FormButton = styled('button', {
 
   '&:hover': {
     backgroundColor: '#3f5399',
+  },
+
+  '&:disabled': {
+    cursor: 'not-allowed',
+    backgroundColor: '$gray800',
   },
 
   variants: {

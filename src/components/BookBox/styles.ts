@@ -33,7 +33,6 @@ export const BookBoxTeste = styled('div', {
 export const BookBox = styled('div', {
   backgroundColor: '$gray600',
   borderRadius: '$md',
-  border: '1px solid $black',
   padding: '$6',
 
   display: 'flex',
@@ -138,6 +137,11 @@ export const BookBoxContainer = styled('div', {
   flexDirection: 'column',
   backgroundColor: '$gray600',
   borderRadius: '$md',
+  border: '1px solid $black',
+
+  '&:hover': {
+    border: '1px solid $purple100',
+  },
 })
 
 export const ReviewHead = styled('div', {
@@ -248,4 +252,12 @@ export const DialogLogin = styled('button', {
 export const Description = styled(DialogDescription, {
   alignSelf: 'center',
   marginBottom: '$3',
+})
+
+export const StarContainer = styled('div', {
+  '.starStyle': {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: '$1',
+  },
 })

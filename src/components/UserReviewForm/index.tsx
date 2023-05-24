@@ -1,30 +1,52 @@
-import { Check, Star, X } from '@phosphor-icons/react'
+import { Check, X } from '@phosphor-icons/react'
 import { Avatar } from '../Avatar'
 import {
-  Rating,
   FormContainer,
   UserReviewText,
   FormHeader,
   FormButtonContainer,
   FormButton,
+  FormFooter,
 } from './styles'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Rating } from '@smastrom/react-rating'
+import { customStyles } from '@/styles/global'
 
 const newUserReviewSchema = z.object({
-  userReview: z.string(),
+  userReviewText: z
+    .string()
+    .regex(/^[^-\s]/, {
+      message: 'Sua review precisa ter no mínimo 3 caracteres.',
+    })
+    .min(3, { message: 'Sua review precisa ter no mínimo 3 caracteres.' }),
+  userRating: z
+    .number()
+    .min(1, { message: 'Sua review precisa ter uma nota.' }),
 })
 
 type NewUserReviewData = z.infer<typeof newUserReviewSchema>
 
 export function UserReviewForm() {
-  const { register, handleSubmit } = useForm<NewUserReviewData>({
+  const {
+    register,
+    handleSubmit,
+    control,
+    setValue,
+    formState: { isValid, errors, isSubmitting },
+  } = useForm<NewUserReviewData>({
     resolver: zodResolver(newUserReviewSchema),
   })
 
   async function handleNewUserReview(data: NewUserReviewData) {
     console.log(data)
+  }
+
+  const noRating = !isValid
+
+  function handleStarReset() {
+    setValue('userRating', 0)
   }
 
   return (
@@ -34,27 +56,64 @@ export function UserReviewForm() {
           <Avatar size="medium" />
           <span>Jean Fellipe</span>
         </div>
-        <Rating>
-          <Star size={30} />
-          <Star size={30} />
-          <Star size={30} />
-          <Star size={30} />
-          <Star size={30} />
-        </Rating>
+        <Controller
+          control={control}
+          name="userRating"
+          /*           rules={{
+            validate: (rating) => rating > 0,
+          }} */
+          render={({ field }) => (
+            <Rating
+              style={{ maxWidth: 200 }}
+              value={field.value}
+              onChange={field.onChange}
+              visibleLabelId="userRating"
+              itemStyles={customStyles}
+              className="starStyle"
+            />
+          )}
+        />
+
+        {/*         <Rating
+          onClick={handleRating}
+          initialValue={rating}
+          transition
+          allowFraction
+          SVGstorkeWidth={1}
+          SVGstrokeColor="#8381D9"
+          fillColor="#8381D9"
+          emptyColor="transparent"
+          size={32}
+        /> */}
       </FormHeader>
       <UserReviewText
         placeholder="Escreva sua avaliação"
         maxLength={450}
-        {...register('userReview')}
+        required
+        {...register('userReviewText')}
       />
-      <FormButtonContainer>
-        <FormButton type="reset" buttonType={'cancel'}>
-          <X size={24} />
-        </FormButton>
-        <FormButton type="submit" buttonType={'confirm'}>
-          <Check size={24} />
-        </FormButton>
-      </FormButtonContainer>
+      <FormFooter>
+        <span>
+          {errors.userReviewText ? errors.userReviewText.message : ''}{' '}
+          {errors.userRating ? errors.userRating.message : ''}
+        </span>
+        <FormButtonContainer>
+          <FormButton
+            type="reset"
+            buttonType={'cancel'}
+            onClick={handleStarReset}
+          >
+            <X size={24} />
+          </FormButton>
+          <FormButton
+            type="submit"
+            buttonType={'confirm'}
+            disabled={noRating || isSubmitting}
+          >
+            <Check size={24} />
+          </FormButton>
+        </FormButtonContainer>
+      </FormFooter>
     </FormContainer>
   )
 }

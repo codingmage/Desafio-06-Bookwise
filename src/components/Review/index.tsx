@@ -2,14 +2,15 @@ import Image from 'next/image'
 import {
   BookReview,
   Complement,
-  Rating,
   ReviewContent,
   ReviewInfo,
   ReviewText,
+  StarContainer,
 } from './styles'
-import { Star } from '@phosphor-icons/react'
 import { Avatar } from '../Avatar'
 import AvatarExample from '../../assets/teste.jpg'
+import { customStyles } from '@/styles/global'
+import { Rating } from '@smastrom/react-rating'
 
 export function Review() {
   return (
@@ -20,13 +21,16 @@ export function Review() {
           <span>Jean Fellipe</span>
           <Complement>Hoje</Complement>
         </div>
-        <Rating>
-          <Star />
-          <Star />
-          <Star />
-          <Star />
-          <Star />
-        </Rating>
+        <StarContainer>
+          <Rating
+            style={{ maxWidth: 120 }}
+            value={4.5}
+            itemStyles={customStyles}
+            className="starStyle"
+            readOnly
+            halfFillMode="svg"
+          />
+        </StarContainer>
       </ReviewInfo>
       <ReviewContent>
         <Image

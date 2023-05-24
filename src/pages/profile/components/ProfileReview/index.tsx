@@ -2,13 +2,13 @@ import Image from 'next/image'
 import {
   BookReview,
   Date,
-  Rating,
   ReviewContent,
   ReviewInfo,
   ReviewBook,
 } from './styles'
-import { Star } from '@phosphor-icons/react'
 import AvatarExample from '../../../../assets/teste.jpg'
+import { customStyles } from '@/styles/global'
+import { Rating } from '@smastrom/react-rating'
 
 export function ProfileReview() {
   return (
@@ -27,13 +27,14 @@ export function ProfileReview() {
               <h4>O Conde de Monte Cristo</h4>
               <span>Alexandre Dumas</span>
             </div>
-            <Rating>
-              <Star />
-              <Star />
-              <Star />
-              <Star />
-              <Star />
-            </Rating>
+            <Rating
+              style={{ maxWidth: 120, flexDirection: 'row' }}
+              value={4.5}
+              itemStyles={customStyles}
+              className="starStyle"
+              readOnly
+              halfFillMode="svg"
+            />
           </ReviewBook>
         </ReviewInfo>
         <ReviewContent>

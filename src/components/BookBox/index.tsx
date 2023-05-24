@@ -7,7 +7,6 @@ import {
   BookInfo,
   BookTitle,
   ExtraBoxContainer,
-  Rating,
   CloseButton,
   Content,
   ModalOverlay,
@@ -17,9 +16,10 @@ import {
   Description,
   DialogLogin,
   LoginContent,
+  StarContainer,
 } from './styles'
 import AvatarExample from '../../assets/teste.jpg'
-import { BookOpen, BookmarkSimple, Star, X } from '@phosphor-icons/react'
+import { BookOpen, BookmarkSimple, X } from '@phosphor-icons/react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { ReactNode } from 'react'
 import {
@@ -31,19 +31,15 @@ import {
 } from '../Review/styles'
 import GoogleLogo from '../../assets/logos_google-icon.svg'
 import GithubLogo from '../../assets/github-fill.svg'
-import { BookRating } from '../StarRating'
+import { Rating } from '@smastrom/react-rating'
+import { customStyles } from '@/styles/global'
 
 interface BookBoxProps {
   type: 'big' | 'small' | 'medium'
   UserReviewForm: ReactNode
-  StarRating: ReactNode
 }
 
-export function BookBoxComponent({
-  type,
-  UserReviewForm,
-  StarRating,
-}: BookBoxProps) {
+export function BookBoxComponent({ type, UserReviewForm }: BookBoxProps) {
   const smallBox = type === 'small'
 
   const mediumBox = type === 'medium'
@@ -80,7 +76,16 @@ export function BookBoxComponent({
                 </BookTitle>
                 <span>Alexandre Dumas</span>
               </div>
-              <Rating>{StarRating}</Rating>
+              <StarContainer>
+                <Rating
+                  style={{ maxWidth: 120 }}
+                  value={4.5}
+                  itemStyles={customStyles}
+                  className="starStyle"
+                  readOnly
+                  halfFillMode="svg"
+                />
+              </StarContainer>
             </BookInfo>
           </BookBox>
         </Dialog.Trigger>
@@ -105,13 +110,14 @@ export function BookBoxComponent({
                     <h3>O Conde de Monte Cristo Abacaxi Banana Maça</h3>
                     <span>Alexandre Dumas</span>
                   </div>
-                  {/*                   <Rating>
-                    <Star />
-                    <Star />
-                    <Star />
-                    <Star />
-                    <Star />
-                  </Rating> */}
+                  <Rating
+                    style={{ maxWidth: 240, flexDirection: 'row' }}
+                    value={4.5}
+                    itemStyles={customStyles}
+                    className="starStyle"
+                    readOnly
+                    halfFillMode="svg"
+                  />
                 </BookInfo>
               </BookBox>
               <ExtraBoxContainer>
@@ -188,13 +194,14 @@ export function BookBoxComponent({
                     <span>Jean Fellipe</span>
                     <Complement>Hoje</Complement>
                   </div>
-                  <Rating>
-                    <Star />
-                    <Star />
-                    <Star />
-                    <Star />
-                    <Star />
-                  </Rating>
+                  <Rating
+                    style={{ maxWidth: 120, flexDirection: 'row' }}
+                    value={4.5}
+                    itemStyles={customStyles}
+                    className="starStyle"
+                    readOnly
+                    halfFillMode="svg"
+                  />
                 </ReviewInfo>
                 <ReviewContent>
                   <ReviewText>
@@ -212,13 +219,14 @@ export function BookBoxComponent({
                     <span>Jean Fellipe</span>
                     <Complement>Hoje</Complement>
                   </div>
-                  <Rating>
-                    <Star />
-                    <Star />
-                    <Star />
-                    <Star />
-                    <Star />
-                  </Rating>
+                  <Rating
+                    style={{ maxWidth: 120, flexDirection: 'row' }}
+                    value={4.5}
+                    itemStyles={customStyles}
+                    className="starStyle"
+                    readOnly
+                    halfFillMode="svg"
+                  />
                 </ReviewInfo>
                 <ReviewContent>
                   <ReviewText>
@@ -236,13 +244,14 @@ export function BookBoxComponent({
                     <span>Jean Fellipe</span>
                     <Complement>Hoje</Complement>
                   </div>
-                  <Rating>
-                    <Star />
-                    <Star />
-                    <Star />
-                    <Star />
-                    <Star />
-                  </Rating>
+                  <Rating
+                    style={{ maxWidth: 120, flexDirection: 'row' }}
+                    value={4.5}
+                    itemStyles={customStyles}
+                    className="starStyle"
+                    readOnly
+                    halfFillMode="svg"
+                  />
                 </ReviewInfo>
                 <ReviewContent>
                   <ReviewText>
@@ -260,13 +269,14 @@ export function BookBoxComponent({
                     <span>Jean Fellipe</span>
                     <Complement>Hoje</Complement>
                   </div>
-                  <Rating>
-                    <Star />
-                    <Star />
-                    <Star />
-                    <Star />
-                    <Star />
-                  </Rating>
+                  <Rating
+                    style={{ maxWidth: 120, flexDirection: 'row' }}
+                    value={4.5}
+                    itemStyles={customStyles}
+                    className="starStyle"
+                    readOnly
+                    halfFillMode="svg"
+                  />
                 </ReviewInfo>
                 <ReviewContent>
                   <ReviewText>

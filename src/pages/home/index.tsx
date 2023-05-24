@@ -12,7 +12,6 @@ import Sidebar from '../../components/Sidebar'
 import { BookBoxComponent } from '../../components/BookBox'
 import { Review } from '@/components/Review'
 import { UserReviewForm } from '@/components/UserReviewForm'
-import { BookRating } from '@/components/StarRating'
 
 export default function Home() {
   // use navlink / link?
@@ -50,7 +49,6 @@ export default function Home() {
             <BookBoxComponent
               type="medium"
               UserReviewForm={<UserReviewForm />}
-              StarRating={<BookRating />}
             />
             <BookBoxComponent
               type="medium"

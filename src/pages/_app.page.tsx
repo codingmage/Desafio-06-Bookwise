@@ -1,6 +1,7 @@
 import { globalStyles } from '@/styles/global'
 import type { AppProps } from 'next/app'
 import { Nunito } from 'next/font/google'
+import '@smastrom/react-rating/style.css'
 
 globalStyles()
 

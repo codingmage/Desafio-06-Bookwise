@@ -67,3 +67,13 @@ export const Rating = styled('span', {
   color: '$purple100',
   fontSize: '$md',
 })
+
+export const StarContainer = styled('div', {
+  maxWidth: 'fit-content',
+
+  '.starStyle': {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: '$1',
+  },
+})
