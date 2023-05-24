@@ -13,6 +13,7 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Rating } from '@smastrom/react-rating'
 import { customStyles } from '@/styles/global'
+import { api } from '@/lib/axios'
 
 const newUserReviewSchema = z.object({
   userReviewText: z
@@ -40,7 +41,16 @@ export function UserReviewForm() {
   })
 
   async function handleNewUserReview(data: NewUserReviewData) {
-    console.log(data)
+    try {
+      await api.post('/rating', {
+        rate: data.userRating,
+        description: data.userReviewText,
+        user: 'Jean Fellipe',
+        book: 'Conde de Monte Cristo',
+      })
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   const noRating = !isValid
