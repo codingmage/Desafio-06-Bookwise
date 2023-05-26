@@ -12,11 +12,22 @@ import {
 } from './styles'
 import { BookBoxComponent } from '../../components/BookBox'
 import { UserReviewForm } from '@/components/UserReviewForm'
+import { api } from '@/lib/axios'
+import { Category } from '@prisma/client'
+import { useQuery } from '@tanstack/react-query'
 
 export default function Explore() {
   /* usestate for active button */
 
   /* Repeating too much code. Componentize? book small/medium/large(full)? */
+
+  const { data: categories } = useQuery<Category[]>(
+    ['categories'],
+    async () => {
+      const { data } = await api.get('/categories')
+      return data?.categories ?? []
+    },
+  )
 
   return (
     <Container>
@@ -33,23 +44,13 @@ export default function Explore() {
         </SearchInputContainer>
 
         <TagContainer>
+          {categories?.map((category) => (
+            <li key={category.id}>
+              <Tag>{category.name}</Tag>
+            </li>
+          ))}
           <li>
             <Tag className="activeTag">Tudo</Tag>
-          </li>
-          <li>
-            <Tag>Tudo</Tag>
-          </li>
-          <li>
-            <Tag>Tudo</Tag>
-          </li>
-          <li>
-            <Tag>Tudo</Tag>
-          </li>
-          <li>
-            <Tag>Tudo</Tag>
-          </li>
-          <li>
-            <Tag>Tudo</Tag>
           </li>
         </TagContainer>
 
@@ -59,84 +60,6 @@ export default function Explore() {
               type="medium"
               UserReviewForm={<UserReviewForm />}
             />
-            {/*             <BookBoxComponent type="medium" />
-            <BookBoxComponent type="medium" />
-            <BookBoxComponent type="medium" />
-            <BookBoxComponent type="medium" />
-            <BookBoxComponent type="medium" />
-            <BookBoxComponent type="medium" /> */}
-            {/*            <BookBox>
-              <Image src={Avatar} height={64} width={64} alt="Capa do livro" />
-              <div>
-                <div>
-                  <span>O Conde de Monte Cristo</span>
-                  <span>Alexandre dumas</span>
-                </div>
-                <span>
-                  <Star /> <Star /> <Star /> <Star /> <Star />
-                </span>
-              </div>
-            </BookBox>
-            <BookBox>
-              <Image src={Avatar} height={64} width={64} alt="Capa do livro" />
-              <div>
-                <div>
-                  <span>O Conde de Monte Cristo</span>
-                  <span>Alexandre dumas</span>
-                </div>
-                <span>
-                  <Star /> <Star /> <Star /> <Star /> <Star />
-                </span>
-              </div>
-            </BookBox>
-            <BookBox>
-              <Image src={Avatar} height={64} width={64} alt="Capa do livro" />
-              <div>
-                <div>
-                  <span>O Conde de Monte Cristo</span>
-                  <span>Alexandre dumas</span>
-                </div>
-                <span>
-                  <Star /> <Star /> <Star /> <Star /> <Star />
-                </span>
-              </div>
-            </BookBox>
-            <BookBox>
-              <Image src={Avatar} height={64} width={64} alt="Capa do livro" />
-              <div>
-                <div>
-                  <span>O Conde de Monte Cristo</span>
-                  <span>Alexandre dumas</span>
-                </div>
-                <span>
-                  <Star /> <Star /> <Star /> <Star /> <Star />
-                </span>
-              </div>
-            </BookBox>
-            <BookBox>
-              <Image src={Avatar} height={64} width={64} alt="Capa do livro" />
-              <div>
-                <div>
-                  <span>O Conde de Monte Cristo</span>
-                  <span>Alexandre dumas</span>
-                </div>
-                <span>
-                  <Star /> <Star /> <Star /> <Star /> <Star />
-                </span>
-              </div>
-            </BookBox>
-            <BookBox>
-              <Image src={Avatar} height={64} width={64} alt="Capa do livro" />
-              <div>
-                <div>
-                  <span>O Conde de Monte Cristo</span>
-                  <span>Alexandre dumas</span>
-                </div>
-                <span>
-                  <Star /> <Star /> <Star /> <Star /> <Star />
-                </span>
-              </div>
-            </BookBox> */}
           </BookList>
         </BookListContainer>
       </ExploreContainer>

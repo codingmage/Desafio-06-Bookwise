@@ -4,6 +4,21 @@ export const Container = styled('div', {
   display: 'flex',
   height: '100vh',
   gap: '5rem',
+  overflowX: 'hidden',
+
+  '::-webkit-scrollbar': {
+    width: 10,
+  },
+
+  '::-webkit-scrollbar-track': {
+    boxShadow: 'inset 0 0 10px 10px green',
+    border: 'solid 3px transparent',
+  },
+
+  '::-webkit-scrollbar-thumb': {
+    boxShadow: 'inset 0 0 10px 10px red',
+    border: 'solid 3px transparent',
+  },
 })
 
 export const ExploreContainer = styled('div', {
@@ -53,8 +68,11 @@ export const TagContainer = styled('ul', {
   textDecoration: 'none',
   listStyleType: 'none',
   display: 'flex',
-  width: '100%',
+  width: '80%',
   gap: '$2',
+  overflowX: 'scroll',
+  scrollbarWidth: 'thin',
+  scrollbarColor: '#1d3791 #252e4d',
 
   'li .activeTag': {
     background: '$purple100',
@@ -70,6 +88,7 @@ export const Tag = styled('button', {
   cursor: 'pointer',
 
   padding: '$1 $3',
+  marginBottom: '$2',
 })
 
 export const BookListContainer = styled('div', {
