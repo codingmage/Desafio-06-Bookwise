@@ -12,6 +12,7 @@ import Sidebar from '../../components/Sidebar'
 import { BookBoxComponent } from '../../components/BookBox'
 import { Review } from '@/components/Review'
 import { UserReviewForm } from '@/components/UserReviewForm'
+import { useSession } from 'next-auth/react'
 
 export default function Home() {
   // use navlink / link?
@@ -20,12 +21,17 @@ export default function Home() {
 
   /*   const isLoggedIn = false */
 
+  const { data: session } = useSession()
+
+  console.log(session)
+
   return (
     <Container>
       <Sidebar />
       <HomeContainer>
         <h2>
           <ChartLineUp size={32} /> Início
+          {session?.expires}
         </h2>
         <MainFeed>
           <MostRecent>

@@ -18,9 +18,12 @@ import {
 } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { Avatar } from '../Avatar'
+import { useSession, signOut } from 'next-auth/react'
 
 export default function Sidebar() {
-  const isLoggedIn = true
+  const { data: session } = useSession()
+
+  /* const isLoggedIn = false */
 
   // use navlink / link?
   // radix or mui for components
@@ -52,7 +55,7 @@ export default function Sidebar() {
               </Link>
             </li>
 
-            {isLoggedIn && (
+            {session && (
               <li className={router.pathname === '/profile' ? 'active' : ''}>
                 <Link href="/profile">
                   <User size={24} />
@@ -60,12 +63,13 @@ export default function Sidebar() {
                 </Link>
               </li>
             )}
+            <span>nome: {session?.user?.name}</span>
           </NavList>
-          {isLoggedIn ? (
+          {session ? (
             <LoggedInUser>
               <Avatar size="small" />
               <span>Jean Fellipe</span>
-              <button>
+              <button onClick={() => signOut()}>
                 <SignOut size={24} />
               </button>
             </LoggedInUser>

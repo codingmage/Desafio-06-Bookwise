@@ -59,6 +59,8 @@ export function UserReviewForm() {
     setValue('userRating', 0)
   }
 
+  // setValue to pass user & book?
+
   return (
     <FormContainer as="form" onSubmit={handleSubmit(handleNewUserReview)}>
       <FormHeader>

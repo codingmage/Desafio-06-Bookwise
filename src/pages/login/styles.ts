@@ -69,4 +69,6 @@ export const LoginType = styled(Link, {
   gap: '$4',
   fontSize: '$lg',
   cursor: 'pointer',
+
+  border: '1px solid $gray400',
 })
