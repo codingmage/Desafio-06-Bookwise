@@ -6,7 +6,7 @@ import {
   ReviewInfo,
   ReviewBook,
 } from './styles'
-import AvatarExample from '../../../../assets/teste.jpg'
+import AvatarExample from '../../../../../assets/teste.jpg'
 import { customStyles } from '@/styles/global'
 import { Rating } from '@smastrom/react-rating'
 

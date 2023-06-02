@@ -6,6 +6,7 @@ declare module 'next-auth' {
     id: string
     name: string
     avatar_url: string
+    email?: string | null
   }
 
   // eslint-disable-next-line no-unused-vars

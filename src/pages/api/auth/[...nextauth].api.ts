@@ -33,6 +33,7 @@ export function buildNextAuthOptions(
             id: profile.sub,
             name: profile.name,
             username: '',
+            email: profile.email,
             avatar_url: profile.picture,
           }
         },
@@ -47,6 +48,7 @@ export function buildNextAuthOptions(
             name: profile.name!,
             avatar_url: profile.avatar_url,
             username: '',
+            email: profile.email,
           }
         },
       }),

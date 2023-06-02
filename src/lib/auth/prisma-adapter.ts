@@ -11,6 +11,7 @@ export function PrismaAdapter(
       const prismaUser = await prisma.user.create({
         data: {
           name: user.name,
+          email: user.email,
           avatar_url: user.avatar_url,
         },
       })
@@ -18,6 +19,7 @@ export function PrismaAdapter(
       return {
         id: prismaUser.id,
         name: prismaUser.name,
+        email: prismaUser.email!,
         emailVerified: null,
         avatar_url: prismaUser.avatar_url!,
       }
@@ -37,8 +39,29 @@ export function PrismaAdapter(
       return {
         id: user.id,
         name: user.name,
-        avatar_url: user.avatar_url!,
+        email: user.email!,
         emailVerified: null,
+        avatar_url: user.avatar_url!,
+      }
+    },
+
+    async getUserByEmail(email) {
+      const user = await prisma.user.findUnique({
+        where: {
+          email,
+        },
+      })
+
+      if (!user) {
+        return null
+      }
+
+      return {
+        id: user.id,
+        name: user.name,
+        email: user.email!,
+        emailVerified: null,
+        avatar_url: user.avatar_url!,
       }
     },
 
@@ -64,6 +87,7 @@ export function PrismaAdapter(
       return {
         id: user.id,
         name: user.name,
+        email: user.email!,
         emailVerified: null,
         avatar_url: user.avatar_url!,
       }
@@ -76,6 +100,7 @@ export function PrismaAdapter(
         },
         data: {
           name: user.name,
+          email: user.email,
           avatar_url: user.avatar_url,
         },
       })
@@ -83,6 +108,7 @@ export function PrismaAdapter(
       return {
         id: prismaUser.id,
         name: prismaUser.name,
+        email: prismaUser.email!,
         emailVerified: null,
         avatar_url: prismaUser.avatar_url!,
       }
@@ -147,7 +173,6 @@ export function PrismaAdapter(
         user: {
           id: user.id,
           name: user.name,
-          username: user.username,
           email: user.email!,
           emailVerified: null,
           avatar_url: user.avatar_url!,

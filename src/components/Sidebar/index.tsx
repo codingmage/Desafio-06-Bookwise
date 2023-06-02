@@ -23,11 +23,6 @@ import { useSession, signOut } from 'next-auth/react'
 export default function Sidebar() {
   const { data: session } = useSession()
 
-  /* const isLoggedIn = false */
-
-  // use navlink / link?
-  // radix or mui for components
-
   const router = useRouter()
 
   return (
@@ -56,19 +51,24 @@ export default function Sidebar() {
             </li>
 
             {session && (
-              <li className={router.pathname === '/profile' ? 'active' : ''}>
-                <Link href="/profile">
+              <li
+                className={
+                  router.pathname === `/profile/${session.user.id}`
+                    ? 'active'
+                    : ''
+                }
+              >
+                <Link href={`/profile/${session.user.id}`}>
                   <User size={24} />
                   Perfil
                 </Link>
               </li>
             )}
-            <span>nome: {session?.user?.name}</span>
           </NavList>
           {session ? (
             <LoggedInUser>
               <Avatar size="small" />
-              <span>Jean Fellipe</span>
+              <span>{session?.user?.name}</span>
               <button onClick={() => signOut()}>
                 <SignOut size={24} />
               </button>

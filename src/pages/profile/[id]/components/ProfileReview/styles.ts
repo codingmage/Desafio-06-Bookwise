@@ -1,4 +1,4 @@
-import { styled } from '../../../../../stitches.config'
+import { styled } from '../../../../../../stitches.config'
 
 export const BookReview = styled('div', {
   display: 'flex',

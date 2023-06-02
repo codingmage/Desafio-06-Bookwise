@@ -6,7 +6,7 @@ import {
   MagnifyingGlass,
   User,
 } from '@phosphor-icons/react'
-import Sidebar from '../../components/Sidebar'
+import Sidebar from '../../../components/Sidebar'
 import {
   Container,
   GoBack,
@@ -24,7 +24,7 @@ import {
 import { Avatar } from '@/components/Avatar'
 import { ProfileReview } from './components/ProfileReview'
 import Image from 'next/image'
-import Rectangle from '../../assets/Rectangle.svg'
+import Rectangle from '../../../assets/Rectangle.svg'
 
 export default function Profile() {
   /* usestate for active button */
