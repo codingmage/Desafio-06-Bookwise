@@ -10,7 +10,17 @@ export default async function handler(
     return res.status(405).end()
   }
 
-  const books = await prisma.book.findMany()
+  const categoryId = String(req.query.category)
 
-  return res.status(201).json(books)
+  const books = await prisma.book.findMany({
+    where: {
+      categories: {
+        some: {
+          categoryId,
+        },
+      },
+    },
+  })
+
+  return res.status(201).json({ books })
 }

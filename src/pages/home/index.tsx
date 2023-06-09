@@ -11,8 +11,8 @@ import { CaretRight, ChartLineUp } from '@phosphor-icons/react'
 import Sidebar from '../../components/Sidebar'
 import { BookBoxComponent } from '../../components/BookBox'
 import { Review } from '@/components/Review'
-import { UserReviewForm } from '@/components/UserReviewForm'
-import { useSession } from 'next-auth/react'
+
+/* import { useSession } from 'next-auth/react' */
 
 export default function Home() {
   // use navlink / link?
@@ -21,9 +21,7 @@ export default function Home() {
 
   /*   const isLoggedIn = false */
 
-  const { data: session } = useSession()
-
-  console.log(session)
+  /*   const { data: session } = useSession() */
 
   return (
     <Container>
@@ -31,7 +29,6 @@ export default function Home() {
       <HomeContainer>
         <h2>
           <ChartLineUp size={32} /> Início
-          {session?.expires}
         </h2>
         <MainFeed>
           <MostRecent>
@@ -52,7 +49,7 @@ export default function Home() {
                 Ver todos <CaretRight />
               </button>
             </PopularHeader>
-            <BookBoxComponent
+            {/* <BookBoxComponent
               type="medium"
               UserReviewForm={<UserReviewForm />}
             />
@@ -71,7 +68,7 @@ export default function Home() {
             <BookBoxComponent
               type="medium"
               UserReviewForm={<UserReviewForm />}
-            />
+            /> */}
           </MostPopular>
         </MainFeed>
       </HomeContainer>

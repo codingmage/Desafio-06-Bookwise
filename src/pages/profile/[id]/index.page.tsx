@@ -25,11 +25,12 @@ import { Avatar } from '@/components/Avatar'
 import { ProfileReview } from './components/ProfileReview'
 import Image from 'next/image'
 import Rectangle from '../../../assets/Rectangle.svg'
+import { useRouter } from 'next/router'
 
 export default function Profile() {
-  /* usestate for active button */
+  /* const router = useRouter() */
 
-  /* Repeating too much code. Componentize? book small/medium/large(full)? */
+  /* const userId = String(router.query.id) */
 
   const isLoggedIn = false
 

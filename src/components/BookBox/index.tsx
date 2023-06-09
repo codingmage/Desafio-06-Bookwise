@@ -31,22 +31,49 @@ import {
 } from '../Review/styles'
 import GoogleLogo from '../../assets/logos_google-icon.svg'
 import GithubLogo from '../../assets/github-fill.svg'
-import { Rating } from '@smastrom/react-rating'
+import { Rating as StarComponent } from '@smastrom/react-rating'
 import { customStyles } from '@/styles/global'
+import { api } from '@/lib/axios'
+import { useQuery } from '@tanstack/react-query'
 
 interface BookBoxProps {
   type: 'big' | 'small' | 'medium'
   UserReviewForm: ReactNode
+  bookCover: string
+  bookTitle: string
+  bookAuthor: string
+  bookCategory: string
+  bookPage: number
+  thisBookId: string
 }
 
-export function BookBoxComponent({ type, UserReviewForm }: BookBoxProps) {
+export function BookBoxComponent({
+  type,
+  UserReviewForm,
+  bookAuthor,
+  bookCover,
+  bookTitle,
+  bookCategory,
+  bookPage,
+  thisBookId,
+}: BookBoxProps) {
   const smallBox = type === 'small'
 
   const mediumBox = type === 'medium'
 
-  /*   const fullBox = type === 'big' */
-
   const isLoggedIn = true
+
+  const { data: bookAverageRating } = useQuery<number>(
+    [thisBookId],
+    async () => {
+      const { data } = await api.get('/averageRating', {
+        params: {
+          bookId: thisBookId,
+        },
+      })
+      return data
+    },
+  )
 
   return (
     <BookBoxContainer>
@@ -55,7 +82,7 @@ export function BookBoxComponent({ type, UserReviewForm }: BookBoxProps) {
           <BookBox type={type}>
             {smallBox ? (
               <Image
-                src={AvatarExample}
+                src={bookCover}
                 width={64}
                 height={94}
                 alt="Capa do livro"
@@ -63,7 +90,7 @@ export function BookBoxComponent({ type, UserReviewForm }: BookBoxProps) {
             ) : null}
             {mediumBox ? (
               <Image
-                src={AvatarExample}
+                src={bookCover}
                 width={74}
                 height={104}
                 alt="Capa do livro"
@@ -71,15 +98,13 @@ export function BookBoxComponent({ type, UserReviewForm }: BookBoxProps) {
             ) : null}
             <BookInfo>
               <div>
-                <BookTitle>
-                  O Conde de Monte Cristo Abacaxi Banana Maça
-                </BookTitle>
-                <span>Alexandre Dumas</span>
+                <BookTitle>{bookTitle}</BookTitle>
+                <span>{bookAuthor}</span>
               </div>
               <StarContainer>
-                <Rating
+                <StarComponent
                   style={{ maxWidth: 120 }}
-                  value={4.5}
+                  value={bookAverageRating ?? (bookAverageRating || 0)}
                   itemStyles={customStyles}
                   className="starStyle"
                   readOnly
@@ -110,9 +135,9 @@ export function BookBoxComponent({ type, UserReviewForm }: BookBoxProps) {
                     <h3>O Conde de Monte Cristo Abacaxi Banana Maça</h3>
                     <span>Alexandre Dumas</span>
                   </div>
-                  <Rating
+                  <StarComponent
                     style={{ maxWidth: 240, flexDirection: 'row' }}
-                    value={4.5}
+                    value={bookAverageRating ?? (bookAverageRating || 0)}
                     itemStyles={customStyles}
                     className="starStyle"
                     readOnly
@@ -126,14 +151,14 @@ export function BookBoxComponent({ type, UserReviewForm }: BookBoxProps) {
                     <BookmarkSimple size={32} />
                     <div>
                       <span>Categoria</span>
-                      <span>Aventura</span>
+                      <span>{bookCategory}</span>
                     </div>
                   </BookDetailsContent>
                   <BookDetailsContent>
                     <BookOpen size={32} />
                     <div>
                       <span>Páginas</span>
-                      <span>638</span>
+                      <span>{bookPage}</span>
                     </div>
                   </BookDetailsContent>
                 </BookDetails>
@@ -194,7 +219,7 @@ export function BookBoxComponent({ type, UserReviewForm }: BookBoxProps) {
                     <span>Jean Fellipe</span>
                     <Complement>Hoje</Complement>
                   </div>
-                  <Rating
+                  <StarComponent
                     style={{ maxWidth: 120, flexDirection: 'row' }}
                     value={4.5}
                     itemStyles={customStyles}
@@ -219,7 +244,7 @@ export function BookBoxComponent({ type, UserReviewForm }: BookBoxProps) {
                     <span>Jean Fellipe</span>
                     <Complement>Hoje</Complement>
                   </div>
-                  <Rating
+                  <StarComponent
                     style={{ maxWidth: 120, flexDirection: 'row' }}
                     value={4.5}
                     itemStyles={customStyles}
@@ -244,7 +269,7 @@ export function BookBoxComponent({ type, UserReviewForm }: BookBoxProps) {
                     <span>Jean Fellipe</span>
                     <Complement>Hoje</Complement>
                   </div>
-                  <Rating
+                  <StarComponent
                     style={{ maxWidth: 120, flexDirection: 'row' }}
                     value={4.5}
                     itemStyles={customStyles}
@@ -269,7 +294,7 @@ export function BookBoxComponent({ type, UserReviewForm }: BookBoxProps) {
                     <span>Jean Fellipe</span>
                     <Complement>Hoje</Complement>
                   </div>
-                  <Rating
+                  <StarComponent
                     style={{ maxWidth: 120, flexDirection: 'row' }}
                     value={4.5}
                     itemStyles={customStyles}

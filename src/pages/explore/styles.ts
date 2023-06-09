@@ -5,6 +5,7 @@ export const Container = styled('div', {
   height: '100vh',
   gap: '5rem',
   overflowX: 'hidden',
+  overflowY: 'scroll',
 
   '::-webkit-scrollbar': {
     width: 10,
@@ -73,6 +74,7 @@ export const TagContainer = styled('ul', {
   overflowX: 'scroll',
   scrollbarWidth: 'thin',
   scrollbarColor: '#1d3791 #252e4d',
+  flexShrink: 0,
 
   'li .activeTag': {
     background: '$purple100',

@@ -10,7 +10,16 @@ export default async function handler(
     return res.status(405).end()
   }
 
-  const categories = await prisma.category.findMany()
+  const bookId = String(req.query.bookId)
 
-  return res.status(200).json({ categories })
+  const ratings = await prisma.rating.aggregate({
+    _avg: {
+      rate: true,
+    },
+    where: {
+      book_id: bookId,
+    },
+  })
+
+  return res.status(200).json(ratings._avg.rate)
 }

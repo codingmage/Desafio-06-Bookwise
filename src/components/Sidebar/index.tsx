@@ -25,6 +25,12 @@ export default function Sidebar() {
 
   const router = useRouter()
 
+  /*   const replace = router.pathname.split('/profile/').pop()
+
+  const userId = session?.user.id
+
+  const sameUser = userId === replace */
+
   return (
     <Container>
       <SidebarContainer>
@@ -52,13 +58,9 @@ export default function Sidebar() {
 
             {session && (
               <li
-                className={
-                  router.pathname === `/profile/${session.user.id}`
-                    ? 'active'
-                    : ''
-                }
+                className={router.pathname === '/profile/[id]' ? 'active' : ''}
               >
-                <Link href={`/profile/${session.user.id}`}>
+                <Link href={`/profile/[id]`} as={`/profile/${session.user.id}`}>
                   <User size={24} />
                   Perfil
                 </Link>
