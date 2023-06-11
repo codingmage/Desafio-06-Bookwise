@@ -14,6 +14,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Rating } from '@smastrom/react-rating'
 import { customStyles } from '@/styles/global'
 import { api } from '@/lib/axios'
+import { useSession } from 'next-auth/react'
 
 const newUserReviewSchema = z.object({
   userReviewText: z
@@ -29,7 +30,11 @@ const newUserReviewSchema = z.object({
 
 type NewUserReviewData = z.infer<typeof newUserReviewSchema>
 
-export function UserReviewForm() {
+interface BookIdProps {
+  thisBookId: string
+}
+
+export function UserReviewForm({ thisBookId }: BookIdProps) {
   const {
     register,
     handleSubmit,
@@ -40,13 +45,17 @@ export function UserReviewForm() {
     resolver: zodResolver(newUserReviewSchema),
   })
 
+  const session = useSession()
+
+  const loggedInUser = session.data?.user
+
   async function handleNewUserReview(data: NewUserReviewData) {
     try {
       await api.post('/rating', {
         rate: data.userRating,
         description: data.userReviewText,
-        user: 'Jean Fellipe',
-        book: 'Conde de Monte Cristo',
+        user: loggedInUser?.id,
+        book: thisBookId,
       })
     } catch (err) {
       console.log(err)
@@ -66,7 +75,7 @@ export function UserReviewForm() {
       <FormHeader>
         <div>
           <Avatar size="medium" />
-          <span>Jean Fellipe</span>
+          <span>{loggedInUser?.name}</span>
         </div>
         <Controller
           control={control}

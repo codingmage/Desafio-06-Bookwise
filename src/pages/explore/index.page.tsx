@@ -10,17 +10,20 @@ import {
   Tag,
   TagContainer,
 } from './styles'
-import { BookBoxComponent } from '../../components/BookBox'
+import { BookBoxComponent, ExtendedCategory } from '../../components/BookBox'
 import { UserReviewForm } from '@/components/UserReviewForm'
 import { api } from '@/lib/axios'
 import { Book, Category } from '@prisma/client'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 
+interface BookData extends Book {
+  categories: ExtendedCategory[]
+  /*   reviews: Rating[] */
+}
+
 export default function Explore() {
   /* usestate for active button */
-
-  /* Repeating too much code. Componentize? book small/medium/large(full)? */
 
   // guardar cache quando mudar categoria
 
@@ -30,19 +33,24 @@ export default function Explore() {
     ['categories'],
     async () => {
       const { data } = await api.get('/categories')
-      return data?.categories
+      return data.categories
     },
   )
 
-  const { data: books, isLoading } = useQuery<Book[]>(
+  const { data: books, isLoading } = useQuery<BookData[]>(
     ['books', selectedCategory],
     async () => {
-      const { data } = await api.get('/books', {
-        params: {
-          category: selectedCategory,
-        },
-      })
-      return data.books
+      if (selectedCategory === 'all') {
+        const { data } = await api.get('/allBooks')
+        return data.allBooks
+      } else {
+        const { data } = await api.get('/books', {
+          params: {
+            category: selectedCategory,
+          },
+        })
+        return data.books
+      }
     },
   )
 
@@ -88,12 +96,13 @@ export default function Explore() {
                 key={taggedBooks.id}
                 type="medium"
                 bookAuthor={taggedBooks.author}
-                bookCategory={taggedBooks.summary}
+                bookCategory={taggedBooks.categories}
+                /* bookReviews={taggedBooks.reviews} */
                 bookCover={taggedBooks.cover_url}
                 bookPage={taggedBooks.total_pages}
                 bookTitle={taggedBooks.name}
                 thisBookId={taggedBooks.id}
-                UserReviewForm={<UserReviewForm />}
+                UserReviewForm={<UserReviewForm thisBookId={taggedBooks.id} />}
               />
             ))}
           </BookList>

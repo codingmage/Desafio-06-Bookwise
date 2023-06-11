@@ -10,13 +10,21 @@ export default async function handler(
     return res.status(405).end()
   }
 
-  const userId = String(req.query.userId)
+  const bookId = String(req.query.bookid)
 
-  const user = await prisma.user.findUnique({
+  const thisBook = await prisma.book.findUnique({
     where: {
-      id: userId,
+      id: bookId,
+    },
+    include: {
+      ratings: {
+        include: {
+          user: true,
+        },
+      },
+      /* ratings: true, */
     },
   })
 
-  return res.status(200).json({ user })
+  return res.status(200).json({ thisBook })
 }

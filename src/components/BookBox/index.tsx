@@ -18,7 +18,6 @@ import {
   LoginContent,
   StarContainer,
 } from './styles'
-import AvatarExample from '../../assets/teste.jpg'
 import { BookOpen, BookmarkSimple, X } from '@phosphor-icons/react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { ReactNode } from 'react'
@@ -35,6 +34,15 @@ import { Rating as StarComponent } from '@smastrom/react-rating'
 import { customStyles } from '@/styles/global'
 import { api } from '@/lib/axios'
 import { useQuery } from '@tanstack/react-query'
+import { CategoriesOnBooks, Category, Rating, User } from '@prisma/client'
+
+export interface ExtendedCategory extends CategoriesOnBooks {
+  category: Category
+}
+
+export interface RatingWithUser extends Rating {
+  user: User
+}
 
 interface BookBoxProps {
   type: 'big' | 'small' | 'medium'
@@ -42,7 +50,7 @@ interface BookBoxProps {
   bookCover: string
   bookTitle: string
   bookAuthor: string
-  bookCategory: string
+  bookCategory: ExtendedCategory[]
   bookPage: number
   thisBookId: string
 }
@@ -74,6 +82,24 @@ export function BookBoxComponent({
       return data
     },
   )
+
+  const { data: bookReviews } = useQuery<RatingWithUser[]>(
+    [thisBookId, bookTitle],
+    async () => {
+      const { data } = await api.get('/bookReviews', {
+        params: {
+          bookId: thisBookId,
+        },
+      })
+      return data
+    },
+  )
+
+  const tags = bookCategory.map((tag) => {
+    return tag.category.name
+  })
+
+  const formattedTags = tags.join(', ')
 
   return (
     <BookBoxContainer>
@@ -125,15 +151,15 @@ export function BookBoxComponent({
             <BookBoxContainer>
               <BookBox type={'big'}>
                 <Image
-                  src={AvatarExample}
+                  src={bookCover}
                   width={172}
                   height={242}
                   alt="Capa do livro"
                 />
                 <BookInfo>
                   <div>
-                    <h3>O Conde de Monte Cristo Abacaxi Banana Maça</h3>
-                    <span>Alexandre Dumas</span>
+                    <h3>{bookTitle}</h3>
+                    <span>{bookAuthor}</span>
                   </div>
                   <StarComponent
                     style={{ maxWidth: 240, flexDirection: 'row' }}
@@ -148,10 +174,10 @@ export function BookBoxComponent({
               <ExtraBoxContainer>
                 <BookDetails>
                   <BookDetailsContent>
-                    <BookmarkSimple size={32} />
+                    <BookmarkSimple size={42} />
                     <div>
-                      <span>Categoria</span>
-                      <span>{bookCategory}</span>
+                      <span>Categorias</span>
+                      <span>{formattedTags}</span>
                     </div>
                   </BookDetailsContent>
                   <BookDetailsContent>
@@ -212,106 +238,36 @@ export function BookBoxComponent({
               </ReviewHead>
             )}
             <ReviewList>
-              <BookReview>
-                <ReviewInfo>
-                  <Image src={AvatarExample} alt="Avatar do autor" width={52} />
-                  <div>
-                    <span>Jean Fellipe</span>
-                    <Complement>Hoje</Complement>
-                  </div>
-                  <StarComponent
-                    style={{ maxWidth: 120, flexDirection: 'row' }}
-                    value={4.5}
-                    itemStyles={customStyles}
-                    className="starStyle"
-                    readOnly
-                    halfFillMode="svg"
-                  />
-                </ReviewInfo>
-                <ReviewContent>
-                  <ReviewText>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Saepe vel provident beatae at mollitia, tenetur corrupti
-                    accusantium, rerum ut neque perspiciatis, eligendi
-                    blanditiis iusto adipisci. Maxime et non ab dignissimos!
-                  </ReviewText>
-                </ReviewContent>
-              </BookReview>
-              <BookReview>
-                <ReviewInfo>
-                  <Image src={AvatarExample} alt="Avatar do autor" width={52} />
-                  <div>
-                    <span>Jean Fellipe</span>
-                    <Complement>Hoje</Complement>
-                  </div>
-                  <StarComponent
-                    style={{ maxWidth: 120, flexDirection: 'row' }}
-                    value={4.5}
-                    itemStyles={customStyles}
-                    className="starStyle"
-                    readOnly
-                    halfFillMode="svg"
-                  />
-                </ReviewInfo>
-                <ReviewContent>
-                  <ReviewText>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Saepe vel provident beatae at mollitia, tenetur corrupti
-                    accusantium, rerum ut neque perspiciatis, eligendi
-                    blanditiis iusto adipisci. Maxime et non ab dignissimos!
-                  </ReviewText>
-                </ReviewContent>
-              </BookReview>
-              <BookReview>
-                <ReviewInfo>
-                  <Image src={AvatarExample} alt="Avatar do autor" width={52} />
-                  <div>
-                    <span>Jean Fellipe</span>
-                    <Complement>Hoje</Complement>
-                  </div>
-                  <StarComponent
-                    style={{ maxWidth: 120, flexDirection: 'row' }}
-                    value={4.5}
-                    itemStyles={customStyles}
-                    className="starStyle"
-                    readOnly
-                    halfFillMode="svg"
-                  />
-                </ReviewInfo>
-                <ReviewContent>
-                  <ReviewText>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Saepe vel provident beatae at mollitia, tenetur corrupti
-                    accusantium, rerum ut neque perspiciatis, eligendi
-                    blanditiis iusto adipisci. Maxime et non ab dignissimos!
-                  </ReviewText>
-                </ReviewContent>
-              </BookReview>
-              <BookReview>
-                <ReviewInfo>
-                  <Image src={AvatarExample} alt="Avatar do autor" width={52} />
-                  <div>
-                    <span>Jean Fellipe</span>
-                    <Complement>Hoje</Complement>
-                  </div>
-                  <StarComponent
-                    style={{ maxWidth: 120, flexDirection: 'row' }}
-                    value={4.5}
-                    itemStyles={customStyles}
-                    className="starStyle"
-                    readOnly
-                    halfFillMode="svg"
-                  />
-                </ReviewInfo>
-                <ReviewContent>
-                  <ReviewText>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Saepe vel provident beatae at mollitia, tenetur corrupti
-                    accusantium, rerum ut neque perspiciatis, eligendi
-                    blanditiis iusto adipisci. Maxime et non ab dignissimos!
-                  </ReviewText>
-                </ReviewContent>
-              </BookReview>
+              {bookReviews?.map((oneReview) => {
+                const reviewAuthor = oneReview.user
+                return (
+                  <BookReview key={oneReview.id}>
+                    <ReviewInfo>
+                      <Image
+                        src={reviewAuthor.avatar_url!}
+                        alt="Avatar do autor"
+                        width={52}
+                        height={52}
+                      />
+                      <div>
+                        <span>{reviewAuthor.name}</span>
+                        <Complement>Hoje</Complement>
+                      </div>
+                      <StarComponent
+                        style={{ maxWidth: 120, flexDirection: 'row' }}
+                        value={oneReview.rate}
+                        itemStyles={customStyles}
+                        className="starStyle"
+                        readOnly
+                        halfFillMode="svg"
+                      />
+                    </ReviewInfo>
+                    <ReviewContent>
+                      <ReviewText>{oneReview.description}</ReviewText>
+                    </ReviewContent>
+                  </BookReview>
+                )
+              })}
             </ReviewList>
           </Content>
         </Dialog.Portal>

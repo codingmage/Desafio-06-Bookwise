@@ -21,5 +21,7 @@ export default async function handler(
     },
   })
 
+  const averageRating = ratings._avg.rate
+
   return res.status(200).json(ratings._avg.rate)
 }

@@ -10,7 +10,20 @@ export default async function handler(
     return res.status(405).end()
   }
 
-  const allBooks = await prisma.book.findMany()
+  const allBooks = await prisma.book.findMany({
+    include: {
+      categories: {
+        include: {
+          category: true,
+        },
+      },
+      ratings: {
+        include: {
+          user: true,
+        },
+      },
+    },
+  })
 
   return res.status(201).json({ allBooks })
 }

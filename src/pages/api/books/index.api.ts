@@ -20,7 +20,22 @@ export default async function handler(
         },
       },
     },
+    include: {
+      categories: {
+        include: {
+          category: true,
+        },
+      },
+      ratings: {
+        include: {
+          user: true,
+        },
+      },
+    },
+    /*     include: {
+      categories: true,
+    }, */
   })
 
-  return res.status(201).json({ books })
+  return res.status(200).json({ books })
 }

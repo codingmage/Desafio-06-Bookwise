@@ -10,13 +10,16 @@ export default async function handler(
     return res.status(405).end()
   }
 
-  const userId = String(req.query.userId)
+  const reviewId = String(req.query.userId)
 
-  const user = await prisma.user.findUnique({
+  const review = await prisma.rating.findUnique({
     where: {
-      id: userId,
+      id: reviewId,
+    },
+    include: {
+      user: true,
     },
   })
 
-  return res.status(200).json({ user })
+  return res.status(200).json({ review })
 }

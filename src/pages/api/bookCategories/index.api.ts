@@ -10,13 +10,16 @@ export default async function handler(
     return res.status(405).end()
   }
 
-  const userId = String(req.query.userId)
+  const singleBookId = String(req.query.singleBookId)
 
-  const user = await prisma.user.findUnique({
+  const bookCategories = await prisma.categoriesOnBooks.findMany({
     where: {
-      id: userId,
+      book_id: singleBookId,
+    },
+    include: {
+      category: true,
     },
   })
 
-  return res.status(200).json({ user })
+  return res.status(201).json({ bookCategories })
 }
