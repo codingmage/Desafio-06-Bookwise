@@ -10,16 +10,7 @@ export default async function handler(
     return res.status(405).end()
   }
 
-  const categoryId = String(req.query.category)
-
-  const books = await prisma.book.findMany({
-    where: {
-      categories: {
-        some: {
-          categoryId,
-        },
-      },
-    },
+  const popularBooks = await prisma.book.findMany({
     include: {
       categories: {
         include: {
@@ -32,10 +23,13 @@ export default async function handler(
         },
       },
     },
-    /*     include: {
-      categories: true,
-    }, */
+    orderBy: {
+      ratings: {
+        _count: 'desc',
+      },
+    },
+    take: 5,
   })
 
-  return res.status(200).json({ books })
+  return res.status(201).json({ popularBooks })
 }

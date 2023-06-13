@@ -50,8 +50,10 @@ export function UserReviewForm({ thisBookId }: BookIdProps) {
   const loggedInUser = session.data?.user
 
   async function handleNewUserReview(data: NewUserReviewData) {
+    console.log(data)
+
     try {
-      await api.post('/rating', {
+      await api.post('/reviews/postReview', {
         rate: data.userRating,
         description: data.userReviewText,
         user: loggedInUser?.id,

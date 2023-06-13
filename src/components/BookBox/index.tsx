@@ -35,6 +35,8 @@ import { customStyles } from '@/styles/global'
 import { api } from '@/lib/axios'
 import { useQuery } from '@tanstack/react-query'
 import { CategoriesOnBooks, Category, Rating, User } from '@prisma/client'
+import { formatDistanceToNow } from 'date-fns'
+import ptBR from 'date-fns/locale/pt-BR'
 
 export interface ExtendedCategory extends CategoriesOnBooks {
   category: Category
@@ -74,7 +76,7 @@ export function BookBoxComponent({
   const { data: bookAverageRating } = useQuery<number>(
     [thisBookId],
     async () => {
-      const { data } = await api.get('/averageRating', {
+      const { data } = await api.get('/books/averageRating', {
         params: {
           bookId: thisBookId,
         },
@@ -86,7 +88,7 @@ export function BookBoxComponent({
   const { data: bookReviews } = useQuery<RatingWithUser[]>(
     [thisBookId, bookTitle],
     async () => {
-      const { data } = await api.get('/bookReviews', {
+      const { data } = await api.get('/reviews/bookReviews', {
         params: {
           bookId: thisBookId,
         },
@@ -240,6 +242,7 @@ export function BookBoxComponent({
             <ReviewList>
               {bookReviews?.map((oneReview) => {
                 const reviewAuthor = oneReview.user
+                const reviewDate = new Date(oneReview.created_at)
                 return (
                   <BookReview key={oneReview.id}>
                     <ReviewInfo>
@@ -251,7 +254,12 @@ export function BookBoxComponent({
                       />
                       <div>
                         <span>{reviewAuthor.name}</span>
-                        <Complement>Hoje</Complement>
+                        <Complement>
+                          {formatDistanceToNow(reviewDate, {
+                            addSuffix: true,
+                            locale: ptBR,
+                          })}
+                        </Complement>
                       </div>
                       <StarComponent
                         style={{ maxWidth: 120, flexDirection: 'row' }}

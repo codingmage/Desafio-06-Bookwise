@@ -15,9 +15,9 @@ import { UserReviewForm } from '@/components/UserReviewForm'
 import { api } from '@/lib/axios'
 import { Book, Category } from '@prisma/client'
 import { useQuery } from '@tanstack/react-query'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-interface BookData extends Book {
+export interface BookData extends Book {
   categories: ExtendedCategory[]
   /*   reviews: Rating[] */
 }
@@ -28,11 +28,13 @@ export default function Explore() {
   // guardar cache quando mudar categoria
 
   const [selectedCategory, setSelectedCategory] = useState<String>('all')
+  const [searchInput, setSearchInput] = useState<String>('')
+  const [filteredBooks, setFilteredBooks] = useState<BookData[]>([])
 
   const { data: categories } = useQuery<Category[]>(
     ['categories'],
     async () => {
-      const { data } = await api.get('/categories')
+      const { data } = await api.get('/books/categories')
       return data.categories
     },
   )
@@ -41,10 +43,10 @@ export default function Explore() {
     ['books', selectedCategory],
     async () => {
       if (selectedCategory === 'all') {
-        const { data } = await api.get('/allBooks')
+        const { data } = await api.get('/books/allBooks')
         return data.allBooks
       } else {
-        const { data } = await api.get('/books', {
+        const { data } = await api.get('/books/filteredBooks', {
           params: {
             category: selectedCategory,
           },
@@ -53,6 +55,29 @@ export default function Explore() {
       }
     },
   )
+
+  useEffect(() => {
+    const filteredSearchBooks = books?.filter((book) => {
+      return (
+        book.name.toLowerCase().includes(searchInput.toLowerCase()) ||
+        book.author.toLowerCase().includes(searchInput.toLowerCase())
+      )
+    })
+    setFilteredBooks(filteredSearchBooks!)
+  }, [books, searchInput])
+
+  /*   function searchBooks(searchValue: String) {
+    setSearchInput(searchValue)
+    const filteredSearchBooks = books?.filter((book) => {
+      return Object.values(book)
+        .join('')
+        .toLowerCase()
+        .includes(searchInput.toLowerCase())
+    })
+    setFilteredBooks(filteredSearchBooks!)
+  } */
+
+  // Search is 1 state behind. UseEffect to solve it?
 
   return (
     <Container>
@@ -64,7 +89,10 @@ export default function Explore() {
           </h2>
         </header>
         <SearchInputContainer>
-          <SearchInput placeholder="Buscar livro ou autor" />
+          <SearchInput
+            placeholder="Buscar livro ou autor"
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
           <MagnifyingGlass />
         </SearchInputContainer>
 
@@ -91,20 +119,37 @@ export default function Explore() {
           <BookList>
             {isLoading && <p>Loading...</p>}
 
-            {books?.map((taggedBooks) => (
-              <BookBoxComponent
-                key={taggedBooks.id}
-                type="medium"
-                bookAuthor={taggedBooks.author}
-                bookCategory={taggedBooks.categories}
-                /* bookReviews={taggedBooks.reviews} */
-                bookCover={taggedBooks.cover_url}
-                bookPage={taggedBooks.total_pages}
-                bookTitle={taggedBooks.name}
-                thisBookId={taggedBooks.id}
-                UserReviewForm={<UserReviewForm thisBookId={taggedBooks.id} />}
-              />
-            ))}
+            {searchInput.length > 1
+              ? filteredBooks?.map((taggedBooks) => (
+                  <BookBoxComponent
+                    key={taggedBooks.id}
+                    type="medium"
+                    bookAuthor={taggedBooks.author}
+                    bookCategory={taggedBooks.categories}
+                    bookCover={taggedBooks.cover_url}
+                    bookPage={taggedBooks.total_pages}
+                    bookTitle={taggedBooks.name}
+                    thisBookId={taggedBooks.id}
+                    UserReviewForm={
+                      <UserReviewForm thisBookId={taggedBooks.id} />
+                    }
+                  />
+                ))
+              : books?.map((taggedBooks) => (
+                  <BookBoxComponent
+                    key={taggedBooks.id}
+                    type="medium"
+                    bookAuthor={taggedBooks.author}
+                    bookCategory={taggedBooks.categories}
+                    bookCover={taggedBooks.cover_url}
+                    bookPage={taggedBooks.total_pages}
+                    bookTitle={taggedBooks.name}
+                    thisBookId={taggedBooks.id}
+                    UserReviewForm={
+                      <UserReviewForm thisBookId={taggedBooks.id} />
+                    }
+                  />
+                ))}
           </BookList>
         </BookListContainer>
       </ExploreContainer>

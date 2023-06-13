@@ -111,6 +111,10 @@ export const PopularHeader = styled('div', {
   justifyContent: 'space-between',
   lineHeight: '$short',
 
+  a: {
+    textDecoration: 'none',
+  },
+
   button: {
     all: 'unset',
     display: 'flex',

@@ -11,6 +11,11 @@ import { CaretRight, ChartLineUp } from '@phosphor-icons/react'
 import Sidebar from '../../components/Sidebar'
 import { BookBoxComponent } from '../../components/BookBox'
 import { Review } from '@/components/Review'
+import { BookData } from '../explore/index.page'
+import { api } from '@/lib/axios'
+import { useQuery } from '@tanstack/react-query'
+import { UserReviewForm } from '@/components/UserReviewForm'
+import Link from 'next/link'
 
 /* import { useSession } from 'next-auth/react' */
 
@@ -22,6 +27,16 @@ export default function Home() {
   /*   const isLoggedIn = false */
 
   /*   const { data: session } = useSession() */
+
+  const { data: popularWithUsers, isLoading } = useQuery<BookData[]>(
+    ['books'],
+    async () => {
+      const { data } = await api.get('/books/popularBooks')
+      return data.popularBooks
+    },
+  )
+
+  console.log(popularWithUsers)
 
   return (
     <Container>
@@ -45,10 +60,28 @@ export default function Home() {
           <MostPopular>
             <PopularHeader>
               <span>Livros populares</span>
-              <button>
-                Ver todos <CaretRight />
-              </button>
+              <Link href={'/explore'}>
+                <button>
+                  Ver todos <CaretRight />
+                </button>
+              </Link>
             </PopularHeader>
+            {isLoading && <p>Loading...</p>}
+
+            {popularWithUsers?.map((books) => (
+              <BookBoxComponent
+                key={books.id}
+                type="medium"
+                bookAuthor={books.author}
+                bookCategory={books.categories}
+                bookCover={books.cover_url}
+                bookPage={books.total_pages}
+                bookTitle={books.name}
+                thisBookId={books.id}
+                UserReviewForm={<UserReviewForm thisBookId={books.id} />}
+              />
+            ))}
+
             {/* <BookBoxComponent
               type="medium"
               UserReviewForm={<UserReviewForm />}

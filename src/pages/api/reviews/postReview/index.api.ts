@@ -21,5 +21,5 @@ export default async function handler(
     },
   })
 
-  return res.status(201).json(rating)
+  return res.status(201).end()
 }
