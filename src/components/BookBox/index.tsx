@@ -17,6 +17,8 @@ import {
   DialogLogin,
   LoginContent,
   StarContainer,
+  UserRatingStart,
+  ReadTag,
 } from './styles'
 import { BookOpen, BookmarkSimple, X } from '@phosphor-icons/react'
 import * as Dialog from '@radix-ui/react-dialog'
@@ -37,6 +39,8 @@ import { useQuery } from '@tanstack/react-query'
 import { CategoriesOnBooks, Category, Rating, User } from '@prisma/client'
 import { formatDistanceToNow } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
+import { Avatar } from '../Avatar'
+import { useSession } from 'next-auth/react'
 
 export interface ExtendedCategory extends CategoriesOnBooks {
   category: Category
@@ -71,7 +75,11 @@ export function BookBoxComponent({
 
   const mediumBox = type === 'medium'
 
-  const isLoggedIn = true
+  const session = useSession()
+
+  const isLoggedIn = session.data?.user!
+
+  const loggedInUserId = session.data?.user.id
 
   const { data: bookAverageRating } = useQuery<number>(
     [thisBookId],
@@ -97,6 +105,21 @@ export function BookBoxComponent({
     },
   )
 
+  const { data: pastUserReview } = useQuery<RatingWithUser>(
+    [bookReviews],
+    async () => {
+      const { data } = await api.get('/reviews/userOwnReview', {
+        params: {
+          bookId: thisBookId,
+          userId: loggedInUserId,
+        },
+      })
+      return data
+    },
+  )
+
+  const hasPastReview = pastUserReview
+
   const tags = bookCategory.map((tag) => {
     return tag.category.name
   })
@@ -105,6 +128,7 @@ export function BookBoxComponent({
 
   return (
     <BookBoxContainer>
+      <div> {hasPastReview ? <ReadTag>LIDO</ReadTag> : null}</div>
       <Dialog.Root>
         <Dialog.Trigger asChild>
           <BookBox type={type}>
@@ -195,6 +219,44 @@ export function BookBoxComponent({
 
             {isLoggedIn ? (
               <div>
+                {hasPastReview ? (
+                  <div>
+                    <UserRatingStart>Sua avaliação:</UserRatingStart>
+                    <BookReview key={pastUserReview.id}>
+                      <ReviewInfo>
+                        <div>
+                          <Avatar
+                            image={session.data?.user.avatar_url || null}
+                            size="medium"
+                          />
+                        </div>
+                        <div>
+                          <span>{pastUserReview.user.name}</span>
+                          <Complement>
+                            {formatDistanceToNow(
+                              new Date(pastUserReview.created_at),
+                              {
+                                addSuffix: true,
+                                locale: ptBR,
+                              },
+                            )}
+                          </Complement>
+                        </div>
+                        <StarComponent
+                          style={{ maxWidth: 120, flexDirection: 'row' }}
+                          value={pastUserReview.rate}
+                          itemStyles={customStyles}
+                          className="starStyle"
+                          readOnly
+                          halfFillMode="svg"
+                        />
+                      </ReviewInfo>
+                      <ReviewContent>
+                        <ReviewText>{pastUserReview.description}</ReviewText>
+                      </ReviewContent>
+                    </BookReview>
+                  </div>
+                ) : null}
                 <h4>Avaliações</h4>
                 {UserReviewForm}
               </div>
@@ -246,12 +308,7 @@ export function BookBoxComponent({
                 return (
                   <BookReview key={oneReview.id}>
                     <ReviewInfo>
-                      <Image
-                        src={reviewAuthor.avatar_url!}
-                        alt="Avatar do autor"
-                        width={52}
-                        height={52}
-                      />
+                      <Avatar image={reviewAuthor.avatar_url} size="medium" />
                       <div>
                         <span>{reviewAuthor.name}</span>
                         <Complement>

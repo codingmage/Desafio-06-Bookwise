@@ -10,19 +10,16 @@ export default async function handler(
     return res.status(405).end()
   }
 
-  const bookId = String(req.query.bookId)
-
-  const reviews = await prisma.rating.findMany({
-    where: {
-      book_id: bookId,
-    },
-    include: {
-      user: true,
-    },
+  const latestReviews = await prisma.rating.findMany({
     orderBy: {
       created_at: 'desc',
     },
+    take: 5,
+    include: {
+      user: true,
+      book: true,
+    },
   })
 
-  return res.status(200).json(reviews)
+  return res.status(200).json(latestReviews)
 }

@@ -12,12 +12,12 @@ export const Container = styled('div', {
   },
 
   '::-webkit-scrollbar-track': {
-    boxShadow: 'inset 0 0 10px 10px green',
+    boxShadow: 'inset 0 0 10px 10px #252e4d',
     border: 'solid 3px transparent',
   },
 
   '::-webkit-scrollbar-thumb': {
-    boxShadow: 'inset 0 0 10px 10px red',
+    boxShadow: 'inset 0 0 10px 10px #1d3791',
     border: 'solid 3px transparent',
   },
 })

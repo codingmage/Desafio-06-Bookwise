@@ -19,13 +19,12 @@ import { useEffect, useState } from 'react'
 
 export interface BookData extends Book {
   categories: ExtendedCategory[]
-  /*   reviews: Rating[] */
 }
 
 export default function Explore() {
   /* usestate for active button */
 
-  // guardar cache quando mudar categoria
+  // guardar cache quando mudar categoria / https://stackoverflow.com/questions/72642027/reactquery-make-refetch-with-old-data
 
   const [selectedCategory, setSelectedCategory] = useState<String>('all')
   const [searchInput, setSearchInput] = useState<String>('')
@@ -66,19 +65,6 @@ export default function Explore() {
     setFilteredBooks(filteredSearchBooks!)
   }, [books, searchInput])
 
-  /*   function searchBooks(searchValue: String) {
-    setSearchInput(searchValue)
-    const filteredSearchBooks = books?.filter((book) => {
-      return Object.values(book)
-        .join('')
-        .toLowerCase()
-        .includes(searchInput.toLowerCase())
-    })
-    setFilteredBooks(filteredSearchBooks!)
-  } */
-
-  // Search is 1 state behind. UseEffect to solve it?
-
   return (
     <Container>
       <Sidebar />
@@ -100,7 +86,7 @@ export default function Explore() {
           <li>
             <Tag
               key={'all'}
-              className="activeTag"
+              className={selectedCategory === 'all' ? 'activeTag' : ''}
               onClick={() => setSelectedCategory('all')}
             >
               Tudo
@@ -108,7 +94,10 @@ export default function Explore() {
           </li>
           {categories?.map((category) => (
             <li key={category.id}>
-              <Tag onClick={() => setSelectedCategory(category.id)}>
+              <Tag
+                className={selectedCategory === category.id ? 'activeTag' : ''}
+                onClick={() => setSelectedCategory(category.id)}
+              >
                 {category.name}
               </Tag>
             </li>

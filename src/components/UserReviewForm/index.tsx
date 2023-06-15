@@ -49,19 +49,21 @@ export function UserReviewForm({ thisBookId }: BookIdProps) {
 
   const loggedInUser = session.data?.user
 
-  async function handleNewUserReview(data: NewUserReviewData) {
-    console.log(data)
+  const loggedInUserAvatar = loggedInUser?.avatar_url
 
+  async function handleNewUserReview(data: NewUserReviewData) {
     try {
       await api.post('/reviews/postReview', {
         rate: data.userRating,
         description: data.userReviewText,
-        user: loggedInUser?.id,
-        book: thisBookId,
+        userId: loggedInUser?.id,
+        bookId: thisBookId,
       })
     } catch (err) {
       console.log(err)
     }
+    setValue('userReviewText', '')
+    setValue('userRating', 0)
   }
 
   const noRating = !isValid
@@ -70,13 +72,11 @@ export function UserReviewForm({ thisBookId }: BookIdProps) {
     setValue('userRating', 0)
   }
 
-  // setValue to pass user & book?
-
   return (
     <FormContainer as="form" onSubmit={handleSubmit(handleNewUserReview)}>
       <FormHeader>
         <div>
-          <Avatar size="medium" />
+          <Avatar image={loggedInUserAvatar || null} size="medium" />
           <span>{loggedInUser?.name}</span>
         </div>
         <Controller

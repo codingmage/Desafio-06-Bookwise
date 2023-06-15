@@ -4,6 +4,7 @@ import { styled } from '../../../stitches.config'
 export const UserAvatar = styled(Image, {
   borderRadius: '$full',
   objectFit: 'cover',
+  border: '2px solid #3e69f7',
 
   variants: {
     type: {

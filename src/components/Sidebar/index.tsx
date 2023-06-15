@@ -25,6 +25,9 @@ export default function Sidebar() {
 
   const router = useRouter()
 
+  /*   const ownAvatar =
+    session?.user.avatar_url ?? (session?.user.avatar_url || noAvatar) */
+
   /*   const replace = router.pathname.split('/profile/').pop()
 
   const userId = session?.user.id
@@ -69,7 +72,7 @@ export default function Sidebar() {
           </NavList>
           {session ? (
             <LoggedInUser>
-              <Avatar size="small" />
+              <Avatar image={session.user.avatar_url} size="small" />
               <span>{session?.user?.name}</span>
               <button onClick={() => signOut()}>
                 <SignOut size={24} />

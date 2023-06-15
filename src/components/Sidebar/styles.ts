@@ -30,10 +30,7 @@ export const Navbar = styled('nav', {
   flexDirection: 'column',
   justifyContent: 'space-between',
   padding: '$10',
-  border: '1px solid black',
   flex: 'auto',
-
-  button: {},
 })
 
 export const NavList = styled('ul', {
@@ -65,6 +62,10 @@ export const NavList = styled('ul', {
     alignItems: 'center',
     gap: '$2',
     textShadow: '0px 1px 2px #000000',
+
+    '&:hover': {
+      color: '$gray300',
+    },
   },
 })
 
@@ -142,14 +143,9 @@ export const GoToLogin = styled(Link, {
 export const LoggedInUser = styled('span', {
   display: 'flex',
   fontSize: '$sm',
-  minWidth: '10rem',
   justifyContent: 'center',
   alignItems: 'center',
   gap: '$2',
-
-  img: {
-    borderRadius: '$full',
-  },
 
   button: {
     all: 'unset',

@@ -34,7 +34,7 @@ export const MostRecent = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   width: '38rem',
-  gap: '$5',
+  gap: '$3',
 })
 
 export const BookReview = styled('div', {

@@ -8,23 +8,44 @@ import {
   StarContainer,
 } from './styles'
 import { Avatar } from '../Avatar'
-import AvatarExample from '../../assets/teste.jpg'
 import { customStyles } from '@/styles/global'
 import { Rating } from '@smastrom/react-rating'
+import { FullReview } from '@/pages/home'
+import { formatDistanceToNow } from 'date-fns'
+import ptBR from 'date-fns/locale/pt-BR'
+import ClampLines from 'react-clamp-lines'
+import Link from 'next/link'
 
-export function Review() {
+interface FullReviewProps {
+  oneReview: FullReview
+}
+
+export function Review({ oneReview }: FullReviewProps) {
+  const reviewAuthor = oneReview.user
+
+  const formattedDate = new Date(oneReview.created_at)
+
+  const reviewBook = oneReview.book
+
   return (
     <BookReview>
       <ReviewInfo>
-        <Avatar size="medium" />
+        <Avatar image={reviewAuthor.avatar_url} size="medium" />
         <div>
-          <span>Jean Fellipe</span>
-          <Complement>Hoje</Complement>
+          <Link href={`/profile/${reviewAuthor.id}`}>
+            <span>{reviewAuthor.name}</span>
+          </Link>
+          <Complement>
+            {formatDistanceToNow(formattedDate, {
+              addSuffix: true,
+              locale: ptBR,
+            })}
+          </Complement>
         </div>
         <StarContainer>
           <Rating
             style={{ maxWidth: 120 }}
-            value={4.5}
+            value={oneReview.rate}
             itemStyles={customStyles}
             className="starStyle"
             readOnly
@@ -34,20 +55,27 @@ export function Review() {
       </ReviewInfo>
       <ReviewContent>
         <Image
-          src={AvatarExample}
+          src={reviewBook.cover_url}
           width={108}
           height={152}
           alt="Capa do livro"
         />
         <ReviewText>
           <div>
-            <h4>O Conde de Monte Cristo</h4>
-            <span>Alexandre Dumas</span>
+            <h4>{reviewBook.name}</h4>
+            <span>{reviewBook.author}</span>
           </div>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe vel
-          provident beatae at mollitia, tenetur corrupti accusantium, rerum ut
-          neque perspiciatis, eligendi blanditiis iusto adipisci. Maxime et non
-          ab dignissimos!
+          <ClampLines
+            text={oneReview.description}
+            id="default"
+            lines={2}
+            buttons={true}
+            ellipsis="..."
+            className="clamped"
+            moreText="Ver mais"
+            lessText="Ver menos"
+          />
+          {/*           {oneReview.description} */}
         </ReviewText>
       </ReviewContent>
     </BookReview>

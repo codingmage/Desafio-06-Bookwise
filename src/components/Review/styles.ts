@@ -8,6 +8,7 @@ export const BookReview = styled('div', {
   borderRadius: '$md',
   border: '1px solid $black',
   flexGrow: 2,
+  marginBottom: '$3',
 
   '&:hover': {
     border: '1px solid $purple100',
@@ -19,6 +20,11 @@ export const ReviewInfo = styled('header', {
   alignItems: 'center',
   gap: '$4',
   marginBottom: '$5',
+
+  a: {
+    textDecoration: 'none',
+    color: 'inherit',
+  },
 
   img: {
     borderRadius: '$full',
@@ -60,6 +66,13 @@ export const ReviewText = styled('div', {
       fontSize: '$sm',
       color: '$gray400',
     },
+  },
+
+  button: {
+    all: 'unset',
+    cursor: 'pointer',
+    fontWeight: '$bold',
+    color: '#5c7ef7',
   },
 })
 

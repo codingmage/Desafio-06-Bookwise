@@ -10,16 +10,40 @@ export default async function handler(
     return res.status(405).end()
   }
 
-  const { rate, description, user, book } = req.body
+  try {
+    const { rate, description, userId, bookId } = req.body
 
-  const rating = await prisma.rating.create({
-    data: {
-      description,
-      rate,
-      user,
-      book,
-    },
-  })
+    const hasUserReview = await prisma.rating.findFirst({
+      where: {
+        book_id: bookId,
+        user_id: userId,
+      },
+    })
 
-  return res.status(201).end()
+    if (hasUserReview) {
+      await prisma.rating.update({
+        where: {
+          id: hasUserReview.id,
+        },
+        data: {
+          description,
+          rate,
+        },
+      })
+      return res.status(201).end()
+    }
+
+    await prisma.rating.create({
+      data: {
+        description,
+        rate,
+        book_id: bookId,
+        user_id: userId,
+      },
+    })
+    return res.status(201).end()
+  } catch (error) {
+    console.error(error)
+    return res.status(400).end()
+  }
 }

@@ -4,7 +4,7 @@ import {
   Books,
   CaretLeft,
   MagnifyingGlass,
-  User,
+  User as UserSVG,
 } from '@phosphor-icons/react'
 import Sidebar from '../../../components/Sidebar'
 import {
@@ -26,22 +26,52 @@ import { ProfileReview } from './components/ProfileReview'
 import Image from 'next/image'
 import Rectangle from '../../../assets/Rectangle.svg'
 import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
+import { FullReview } from '@/pages/home'
+import { useQuery } from '@tanstack/react-query'
+import { api } from '@/lib/axios'
+import { User } from '@prisma/client'
 
 export default function Profile() {
-  /* const router = useRouter() */
+  const router = useRouter()
 
-  /* const userId = String(router.query.id) */
+  const userId = String(router.query.id)
 
-  const isLoggedIn = false
+  const session = useSession()
+
+  const loggedInUser = session.data?.user.id === userId
+
+  const { data: thisUser } = useQuery<User>([userId], async () => {
+    const { data } = await api.get('/user', {
+      params: {
+        userId,
+      },
+    })
+    return data
+  })
+
+  const { data: thisProfileReviews, isFetching } = useQuery<FullReview[]>(
+    ['userReviews', userId],
+    async () => {
+      const { data } = await api.get('/reviews/userProfileReviews', {
+        params: {
+          userId,
+        },
+      })
+      return data
+    },
+  )
+
+  console.log(thisProfileReviews)
 
   return (
     <Container>
       <Sidebar />
       <ProfileContainer>
-        {isLoggedIn ? (
+        {loggedInUser ? (
           <header>
             <h2>
-              <User size={32} /> Perfil
+              <UserSVG size={32} /> Perfil
             </h2>
           </header>
         ) : (
@@ -58,6 +88,11 @@ export default function Profile() {
               <MagnifyingGlass />
             </SearchInputContainer>
             <UserBookList>
+              {isFetching ? (
+                <span>Buscando...</span>
+              ) : (
+                thisProfileReviews?.map()
+              )}
               <ProfileReview />
               <ProfileReview />
               <ProfileReview />
@@ -65,10 +100,15 @@ export default function Profile() {
           </UserBooks>
           <UserDetails>
             <UserInfo>
-              <Avatar size="large" />
+              <Avatar
+                image={thisUser?.avatar_url! ? thisUser?.avatar_url : null}
+                size="large"
+              />
               <div>
-                <h3>Jean Fellipe</h3>
-                <span>Membro desde 2022</span>
+                <h3>{thisUser?.name}</h3>
+                <span>
+                  Membro desde {new Date(thisUser?.created_at!).getFullYear()}
+                </span>
               </div>
             </UserInfo>
 
@@ -90,7 +130,7 @@ export default function Profile() {
                 </div>
               </UserStats>
               <UserStats>
-                <User size={36} />
+                <UserSVG size={36} />
                 <div>
                   <b>8</b>
                   <span>Autores lidos</span>

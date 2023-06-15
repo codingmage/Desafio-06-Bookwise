@@ -16,8 +16,14 @@ import { api } from '@/lib/axios'
 import { useQuery } from '@tanstack/react-query'
 import { UserReviewForm } from '@/components/UserReviewForm'
 import Link from 'next/link'
+import { Book, Rating, User } from '@prisma/client'
 
 /* import { useSession } from 'next-auth/react' */
+
+export interface FullReview extends Rating {
+  user: User
+  book: Book
+}
 
 export default function Home() {
   // use navlink / link?
@@ -28,6 +34,14 @@ export default function Home() {
 
   /*   const { data: session } = useSession() */
 
+  const { data: lastReviews } = useQuery<FullReview[]>(
+    ['ratings'],
+    async () => {
+      const { data } = await api.get('/reviews/latestUserReviews')
+      return data
+    },
+  )
+
   const { data: popularWithUsers, isLoading } = useQuery<BookData[]>(
     ['books'],
     async () => {
@@ -35,8 +49,6 @@ export default function Home() {
       return data.popularBooks
     },
   )
-
-  console.log(popularWithUsers)
 
   return (
     <Container>
@@ -49,12 +61,9 @@ export default function Home() {
           <MostRecent>
             {/* {isLoggedIn ? <span>Sua última leitura</span> : null} */}
             <span>Avaliações mais recentes</span>
-            <Review />
-            <Review />
-            <Review />
-            <Review />
-            <Review />
-            <Review />
+            {lastReviews?.map((singleReview) => {
+              return <Review key={singleReview.id} oneReview={singleReview} />
+            })}
             {/* clamplines or react-show-more-text for read more */}
           </MostRecent>
           <MostPopular>

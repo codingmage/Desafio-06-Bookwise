@@ -1,21 +1,30 @@
-import { useSession } from 'next-auth/react'
 import { UserAvatar } from './styles'
 import noAvatar from '../../assets/bookwiseUser.png'
+import { StaticImageData } from 'next/image'
+import { useEffect, useState } from 'react'
 
 interface AvatarPros {
   size: 'small' | 'medium' | 'large'
+  image: string | null
 }
 
-export function Avatar({ size }: AvatarPros) {
-  const { data: session } = useSession()
+export function Avatar({ size, image }: AvatarPros) {
+  const [avatar, setUserAvatar] = useState<string | StaticImageData>(noAvatar)
 
-  const defineAvatar =
-    session?.user.avatar_url ?? (session?.user.avatar_url || noAvatar)
+  useEffect(() => {
+    const hasAvatar = image !== null
+
+    if (hasAvatar) {
+      setUserAvatar(image)
+    } else {
+      setUserAvatar(noAvatar)
+    }
+  }, [image])
 
   return (
     <UserAvatar
       type={size}
-      src={defineAvatar}
+      src={avatar}
       alt="Avatar do autor"
       height={52}
       width={52}

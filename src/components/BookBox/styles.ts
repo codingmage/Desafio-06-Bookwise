@@ -138,6 +138,7 @@ export const BookBoxContainer = styled('div', {
   backgroundColor: '$gray600',
   borderRadius: '$md',
   border: '1px solid $black',
+  position: 'relative',
 
   '&:hover': {
     border: '1px solid $purple100',
@@ -260,4 +261,26 @@ export const StarContainer = styled('div', {
     flexDirection: 'row',
     gap: '$1',
   },
+})
+
+export const UserRatingStart = styled('h4', {
+  marginBottom: '$2',
+  fontWeight: '$medium',
+})
+
+export const ReadTag = styled('span', {
+  display: 'flex',
+  position: 'absolute',
+  fontSize: '$xs',
+  fontWeight: '$bold',
+  backgroundColor: '$green300',
+  color: '$green100',
+  borderRadius: '$sm',
+  padding: '$1',
+  alignSelf: 'flex-end',
+  border: '1px solid transparent',
+  top: 0,
+  right: 0,
+  marginTop: '$2',
+  marginRight: '$2',
 })
