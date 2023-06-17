@@ -10,6 +10,7 @@ import Sidebar from '../../../components/Sidebar'
 import {
   Container,
   GoBack,
+  Loading,
   ProfileContainer,
   ProfileContent,
   SearchInput,
@@ -27,10 +28,23 @@ import Image from 'next/image'
 import Rectangle from '../../../assets/Rectangle.svg'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
-import { FullReview } from '@/pages/home'
 import { useQuery } from '@tanstack/react-query'
 import { api } from '@/lib/axios'
-import { User } from '@prisma/client'
+import { Book, CategoriesOnBooks, Category, Rating, User } from '@prisma/client'
+import { useEffect, useState } from 'react'
+
+interface FullCategory extends CategoriesOnBooks {
+  category: Category
+}
+
+interface BookWithCategories extends Book {
+  categories: FullCategory[]
+}
+
+interface FullProfileReview extends Rating {
+  user: User
+  book: BookWithCategories
+}
 
 export default function Profile() {
   const router = useRouter()
@@ -50,7 +64,7 @@ export default function Profile() {
     return data
   })
 
-  const { data: thisProfileReviews, isFetching } = useQuery<FullReview[]>(
+  const { data: thisProfileReviews, isLoading } = useQuery<FullProfileReview[]>(
     ['userReviews', userId],
     async () => {
       const { data } = await api.get('/reviews/userProfileReviews', {
@@ -62,7 +76,138 @@ export default function Profile() {
     },
   )
 
-  console.log(thisProfileReviews)
+  const [totalPages, setTotalPages] = useState<number>(0)
+
+  useEffect(() => {
+    if (thisProfileReviews!) {
+      const pagesArray = thisProfileReviews?.map(
+        (pages) => pages.book.total_pages,
+      )
+
+      const total = pagesArray?.reduce(
+        (pages, totalPages) => pages + totalPages,
+        0,
+      )
+
+      setTotalPages(total)
+    }
+  }, [thisProfileReviews])
+
+  const totalBooks = new Set(thisProfileReviews).size
+
+  const authorArray = thisProfileReviews?.map((author) => author.book.author)
+
+  const totalAuthors = new Set(authorArray).size
+
+  /* console.log(categoriesOnBooksArray) */
+
+  const [categoriesList, setCategoriesList] = useState<string[]>([])
+
+  useEffect(() => {
+    if (thisProfileReviews!) {
+      const categoriesOnBooksArray = thisProfileReviews?.map((categories) =>
+        categories.book.categories.map((category) => {
+          return category.category.name
+        }),
+      )
+      for (const categoryArray of categoriesOnBooksArray) {
+        for (const category of categoryArray) {
+          setCategoriesList((oldArray) => [...oldArray, category])
+        }
+      }
+    }
+  }, [thisProfileReviews])
+
+  const [userTopCategory, setUserTopCategory] = useState<string>('')
+
+  function topCategory(array: string[]) {
+    const frequency = {} as any
+    let maxCategory = array[0]
+    let maxCount = 1
+
+    for (let i = 0; i < array.length; i++) {
+      const oneCategory = array[i]
+      if (frequency[oneCategory]) {
+        frequency[oneCategory]++
+      } else {
+        frequency[oneCategory] = 1
+      }
+      if (frequency[oneCategory] > maxCount) {
+        maxCategory = oneCategory
+        maxCount = frequency[oneCategory]
+      }
+    }
+
+    setUserTopCategory(maxCategory)
+  }
+
+  useEffect(() => {
+    if (categoriesList.length > 0) {
+      topCategory(categoriesList)
+    }
+  }, [categoriesList])
+
+  /*   function findMostFrequent(arr: string[]) {
+    const map = {} as any
+    let mostFrequentElement = arr[0]
+
+    for (let i = 0; i < arr.length; i++) {
+      if (!map[arr[i]]) {
+        map[arr[i]] = 1
+      } else {
+        ++map[arr[i]]
+        if (map[arr[i]] > map[mostFrequentElement]) {
+          mostFrequentElement = arr[i]
+        }
+      }
+    }
+    setUserTopCategory(mostFrequentElement)
+  }
+
+  useEffect(() => {
+    if (categoriesList.length > 0) {
+      findMostFrequent(categoriesList)
+    }
+  }, [categoriesList])
+
+  console.log(categoriesList) */
+
+  /*   const categoriesOnBooksArray = thisProfileReviews?.map((categories) =>
+  categories.book.categories.map((category) => {
+    return category.category.name
+  }),
+)
+
+  for (const category of categoriesOnBooksArray) {
+    console.log(category)
+  } */
+
+  /*   const [totalAuthors, setTotalAuthors] = useState<string[]>([])
+
+  for (let i = 0; i < totalBooks; i++) {
+    setTotalAuthors([...totalAuthors, 'o autor novo'])
+  } */
+
+  const [filteredBooks, setFilteredBooks] = useState<FullProfileReview[]>([])
+  const [profileSearchInput, setProfileSearchInput] = useState<String>('')
+
+  useEffect(() => {
+    if (thisProfileReviews!) {
+      const filteredProfileBooks = thisProfileReviews?.filter((profileBook) => {
+        return (
+          profileBook.book.name
+            .toLowerCase()
+            .includes(profileSearchInput.toLowerCase()) ||
+          profileBook.book.author
+            .toLowerCase()
+            .includes(profileSearchInput.toLowerCase())
+        )
+      })
+      setFilteredBooks(filteredProfileBooks)
+    }
+  }, [profileSearchInput, thisProfileReviews])
+
+  console.log(filteredBooks.length)
 
   return (
     <Container>
@@ -84,18 +229,32 @@ export default function Profile() {
         <ProfileContent>
           <UserBooks>
             <SearchInputContainer>
-              <SearchInput placeholder="Buscar livro avaliado" />
+              <SearchInput
+                placeholder="Buscar livro avaliado"
+                onChange={(e) => setProfileSearchInput(e.target.value)}
+              />
               <MagnifyingGlass />
             </SearchInputContainer>
             <UserBookList>
-              {isFetching ? (
-                <span>Buscando...</span>
-              ) : (
-                thisProfileReviews?.map()
-              )}
-              <ProfileReview />
-              <ProfileReview />
-              <ProfileReview />
+              {isLoading && <Loading>Loading...</Loading>}
+
+              {profileSearchInput.length > 1
+                ? filteredBooks?.map((oneProfileReview) => {
+                    return (
+                      <ProfileReview
+                        key={oneProfileReview.id}
+                        oneProfileReview={oneProfileReview}
+                      />
+                    )
+                  })
+                : thisProfileReviews?.map((oneProfileReview) => {
+                    return (
+                      <ProfileReview
+                        key={oneProfileReview.id}
+                        oneProfileReview={oneProfileReview}
+                      />
+                    )
+                  })}
             </UserBookList>
           </UserBooks>
           <UserDetails>
@@ -112,34 +271,42 @@ export default function Profile() {
               </div>
             </UserInfo>
 
-            <Image src={Rectangle} width={64} height={4} alt="" />
+            <Image src={Rectangle} width={64} height={6} alt="" />
 
             <UserStatsContainer>
               <UserStats>
                 <BookOpen size={36} />
                 <div>
-                  <b>3094</b>
+                  <b>{totalPages}</b>
                   <span>Páginas lidas</span>
                 </div>
               </UserStats>
               <UserStats>
                 <Books size={36} />
                 <div>
-                  <b>10</b>
-                  <span>Livros avaliados</span>
+                  <b>{totalBooks}</b>
+                  {totalBooks === 1 ? (
+                    <span>Livro avaliado</span>
+                  ) : (
+                    <span>Livros avaliados</span>
+                  )}
                 </div>
               </UserStats>
               <UserStats>
                 <UserSVG size={36} />
                 <div>
-                  <b>8</b>
-                  <span>Autores lidos</span>
+                  <b>{totalAuthors}</b>
+                  {totalAuthors === 1 ? (
+                    <span>Autor lido</span>
+                  ) : (
+                    <span>Autores lidos</span>
+                  )}
                 </div>
               </UserStats>
               <UserStats>
                 <Bookmark size={36} />
                 <div>
-                  <b>Aventura</b>
+                  <b>{userTopCategory}</b>
                   <span>Categoria mais lida</span>
                 </div>
               </UserStats>

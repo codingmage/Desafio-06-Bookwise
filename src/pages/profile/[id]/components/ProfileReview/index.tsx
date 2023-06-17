@@ -1,35 +1,53 @@
 import Image from 'next/image'
 import {
   BookReview,
-  Date,
+  ReviewDate,
   ReviewContent,
   ReviewInfo,
   ReviewBook,
 } from './styles'
-import AvatarExample from '../../../../../assets/teste.jpg'
 import { customStyles } from '@/styles/global'
-import { Rating } from '@smastrom/react-rating'
+import { Rating as StarComponent } from '@smastrom/react-rating'
+import { Book, Rating } from '@prisma/client'
+import { format } from 'date-fns'
+import ptBR from 'date-fns/locale/pt-BR'
 
-export function ProfileReview() {
+interface FullProfileReview extends Rating {
+  book: Book
+}
+
+interface ProfileReviewProps {
+  oneProfileReview: FullProfileReview
+}
+
+export function ProfileReview({ oneProfileReview }: ProfileReviewProps) {
+  const reviewDate = new Date(oneProfileReview.created_at)
+
+  const reviewBook = oneProfileReview.book
+
   return (
     <div>
-      <Date>Hoje</Date>
+      <ReviewDate>
+        {format(reviewDate, 'PPP', {
+          locale: ptBR,
+        })}
+      </ReviewDate>
       <BookReview>
         <ReviewInfo>
           <Image
-            src={AvatarExample}
+            src={reviewBook.cover_url}
             width={108}
             height={152}
             alt="Capa do livro"
           />
           <ReviewBook>
             <div>
-              <h4>O Conde de Monte Cristo</h4>
-              <span>Alexandre Dumas</span>
+              <h4>{reviewBook.name}</h4>
+              <span>{reviewBook.author}</span>
             </div>
-            <Rating
+            <StarComponent
               style={{ maxWidth: 120, flexDirection: 'row' }}
-              value={4.5}
+              value={oneProfileReview.rate}
               itemStyles={customStyles}
               className="starStyle"
               readOnly
@@ -37,12 +55,7 @@ export function ProfileReview() {
             />
           </ReviewBook>
         </ReviewInfo>
-        <ReviewContent>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Id quia unde
-          iusto dicta deleniti, exercitationem eveniet dolorem consequuntur
-          facere, at pariatur placeat obcaecati quidem ullam qui dolore non ea
-          eligendi.
-        </ReviewContent>
+        <ReviewContent>{oneProfileReview.description}</ReviewContent>
       </BookReview>
     </div>
   )

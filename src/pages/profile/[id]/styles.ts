@@ -12,7 +12,6 @@ export const ProfileContainer = styled('div', {
   width: '80%',
   height: '100%',
   flexDirection: 'column',
-  border: '1px solid red',
 
   h2: {
     marginTop: '3rem',
@@ -56,7 +55,6 @@ export const ProfileContent = styled('main', {
   display: 'flex',
   width: '100%',
   /* justifyContent: 'space-between', */
-  border: '1px solid white',
   gap: '$10',
 })
 
@@ -76,7 +74,7 @@ export const UserBookList = styled('div', {
 })
 
 export const UserDetails = styled('aside', {
-  border: '1px solid black',
+  borderLeft: '1px solid $gray400',
   padding: '$4',
   display: 'flex',
   alignItems: 'center',
@@ -138,4 +136,14 @@ export const GoBack = styled(Link, {
   display: 'flex',
   alignItems: 'center',
   marginTop: '3rem',
+})
+
+export const Loading = styled('div', {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  fontSize: '$lg',
+  fontWeight: 'bold',
+  flexGrow: '2',
+  maxWidth: '39rem',
 })

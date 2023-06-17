@@ -17,12 +17,31 @@ export default async function handler(
       user_id: userId,
     },
     include: {
-      book: true,
+      book: {
+        include: {
+          categories: {
+            include: {
+              category: true,
+            },
+          },
+        },
+      },
     },
     orderBy: {
       created_at: 'desc',
     },
   })
 
+  /*   const categoryNames = reviews.map((categories) => {
+    return categories.book.categories.map((c) => {
+      return c.category.name
+    })
+  })
+
+  for (const categoryArray of categoryNames) {
+    for (const category of categoryArray) {
+    }
+  }
+ */
   return res.status(200).json(reviews)
 }

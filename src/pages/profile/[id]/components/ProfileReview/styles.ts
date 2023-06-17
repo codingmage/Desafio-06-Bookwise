@@ -27,9 +27,13 @@ export const ReviewInfo = styled('header', {
   },
 })
 
-export const Date = styled('span', {
+export const ReviewDate = styled('span', {
   fontSize: '$sm',
   color: '$gray400',
+
+  '::&first-letter': {
+    textTransform: 'capitalize',
+  },
 })
 
 export const ReviewContent = styled('div', {
