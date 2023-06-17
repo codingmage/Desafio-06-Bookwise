@@ -12,10 +12,6 @@ import {
   ModalOverlay,
   ReviewHead,
   ReviewList,
-  GoToLogin,
-  Description,
-  DialogLogin,
-  LoginContent,
   StarContainer,
   UserRatingStart,
   ReadTag,
@@ -30,8 +26,6 @@ import {
   ReviewInfo,
   ReviewText,
 } from '../Review/styles'
-import GoogleLogo from '../../assets/logos_google-icon.svg'
-import GithubLogo from '../../assets/github-fill.svg'
 import { Rating as StarComponent } from '@smastrom/react-rating'
 import { customStyles } from '@/styles/global'
 import { api } from '@/lib/axios'
@@ -53,6 +47,7 @@ export interface RatingWithUser extends Rating {
 interface BookBoxProps {
   type: 'big' | 'small' | 'medium'
   UserReviewForm: ReactNode
+  UserAuthSignIn: ReactNode
   bookCover: string
   bookTitle: string
   bookAuthor: string
@@ -64,6 +59,7 @@ interface BookBoxProps {
 export function BookBoxComponent({
   type,
   UserReviewForm,
+  UserAuthSignIn,
   bookAuthor,
   bookCover,
   bookTitle,
@@ -224,12 +220,10 @@ export function BookBoxComponent({
                     <UserRatingStart>Sua avaliação:</UserRatingStart>
                     <BookReview key={pastUserReview.id}>
                       <ReviewInfo>
-                        <div>
-                          <Avatar
-                            image={session.data?.user.avatar_url || null}
-                            size="medium"
-                          />
-                        </div>
+                        <Avatar
+                          image={session.data?.user.avatar_url || null}
+                          size="medium"
+                        />
                         <div>
                           <span>{pastUserReview.user.name}</span>
                           <Complement>
@@ -263,42 +257,7 @@ export function BookBoxComponent({
             ) : (
               <ReviewHead>
                 <h4>Avaliações</h4>
-                <Dialog.Root>
-                  <Dialog.Trigger asChild>
-                    <GoToLogin>
-                      <span>Avaliar</span>
-                    </GoToLogin>
-                  </Dialog.Trigger>
-                  <Dialog.Portal>
-                    <ModalOverlay />
-                    <LoginContent>
-                      <Dialog.Close asChild>
-                        <CloseButton>
-                          <X />
-                        </CloseButton>
-                      </Dialog.Close>
-                      <Description>
-                        Faça login para deixar sua avaliação.
-                      </Description>
-                      <DialogLogin>
-                        <Image
-                          src={GoogleLogo}
-                          height={32}
-                          alt="Logomarca da Google"
-                        />
-                        Entrar com Google
-                      </DialogLogin>
-                      <DialogLogin>
-                        <Image
-                          src={GithubLogo}
-                          height={32}
-                          alt="Logomarca do Github"
-                        />
-                        Entrar com Github
-                      </DialogLogin>
-                    </LoginContent>
-                  </Dialog.Portal>
-                </Dialog.Root>
+                {UserAuthSignIn}
               </ReviewHead>
             )}
             <ReviewList>

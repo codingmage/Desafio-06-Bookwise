@@ -16,14 +16,13 @@ import { api } from '@/lib/axios'
 import { Book, Category } from '@prisma/client'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
+import { UserAuthSignIn } from '@/components/UserAuthSignIn'
 
 export interface BookData extends Book {
   categories: ExtendedCategory[]
 }
 
 export default function Explore() {
-  /* usestate for active button */
-
   // guardar cache quando mudar categoria / https://stackoverflow.com/questions/72642027/reactquery-make-refetch-with-old-data
 
   const [selectedCategory, setSelectedCategory] = useState<String>('all')
@@ -122,6 +121,7 @@ export default function Explore() {
                     UserReviewForm={
                       <UserReviewForm thisBookId={taggedBooks.id} />
                     }
+                    UserAuthSignIn={<UserAuthSignIn />}
                   />
                 ))
               : books?.map((taggedBooks) => (
@@ -137,6 +137,7 @@ export default function Explore() {
                     UserReviewForm={
                       <UserReviewForm thisBookId={taggedBooks.id} />
                     }
+                    UserAuthSignIn={<UserAuthSignIn />}
                   />
                 ))}
           </BookList>

@@ -1,8 +1,4 @@
-import {
-  DialogContent,
-  DialogDescription,
-  DialogOverlay,
-} from '@radix-ui/react-dialog'
+import { DialogContent, DialogOverlay } from '@radix-ui/react-dialog'
 import { styled } from '../../../stitches.config'
 
 export const BookBoxTeste = styled('div', {
@@ -195,64 +191,6 @@ export const Content = styled(DialogContent, {
   gap: '$4',
 
   overflowY: 'auto',
-})
-
-export const LoginContent = styled(DialogContent, {
-  backgroundColor: '$gray700',
-  borderRadius: 6,
-  boxShadow: '10 5 5 black',
-  position: 'fixed',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '90vw',
-  maxWidth: 450,
-  maxHeight: '85vh',
-  padding: '$10',
-
-  fontFamily: '$default',
-  fontSize: '$sm',
-  color: '$gray200',
-
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '$4',
-})
-
-export const GoToLogin = styled('button', {
-  all: 'unset',
-  display: 'flex',
-  alignItems: 'center',
-  gap: '$1',
-  cursor: 'pointer',
-
-  span: {
-    color: '$purple100',
-  },
-
-  svg: {
-    color: '$green100',
-  },
-})
-
-export const DialogLogin = styled('button', {
-  all: 'unset',
-  backgroundColor: '$gray600',
-  padding: '$3 $4',
-  maxWidth: '23.25rem',
-  borderRadius: '8px',
-  display: 'flex',
-  alignItems: 'center',
-  flexGrow: 0,
-  gap: '$4',
-  fontSize: '$lg',
-  fontWeight: '$bold',
-  cursor: 'pointer',
-})
-
-export const Description = styled(DialogDescription, {
-  alignSelf: 'center',
-  marginBottom: '$3',
 })
 
 export const StarContainer = styled('div', {

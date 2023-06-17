@@ -83,23 +83,6 @@ export const ReviewContent = styled('div', {
   },
 })
 
-/* export const Review = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '$4',
-  textAlign: 'justify',
-
-  div: {
-    display: 'flex',
-    flexDirection: 'column',
-
-    span: {
-      fontSize: '$sm',
-      color: '$gray400',
-    },
-  },
-}) */
-
 export const MostPopular = styled('div', {
   display: 'flex',
   flexDirection: 'column',
@@ -153,4 +136,10 @@ export const BookInfo = styled('div', {
 export const Rating = styled('span', {
   color: '$purple100',
   fontSize: '$md',
+})
+
+export const UserLatestDiv = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$2',
 })

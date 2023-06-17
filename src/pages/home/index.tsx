@@ -5,8 +5,8 @@ import {
   MainFeed,
   MostPopular,
   MostRecent,
+  /* UserLatestDiv, */
 } from './styles'
-/* import Link from 'next/link' */
 import { CaretRight, ChartLineUp } from '@phosphor-icons/react'
 import Sidebar from '../../components/Sidebar'
 import { BookBoxComponent } from '../../components/BookBox'
@@ -17,7 +17,7 @@ import { useQuery } from '@tanstack/react-query'
 import { UserReviewForm } from '@/components/UserReviewForm'
 import Link from 'next/link'
 import { Book, Rating, User } from '@prisma/client'
-
+import { UserAuthSignIn } from '@/components/UserAuthSignIn'
 /* import { useSession } from 'next-auth/react' */
 
 export interface FullReview extends Rating {
@@ -26,13 +26,11 @@ export interface FullReview extends Rating {
 }
 
 export default function Home() {
-  // use navlink / link?
-  // radix or mui for components
-  // ver ignite feed pro comentário?
+  /*   const { data: session } = useSession()
 
-  /*   const isLoggedIn = false */
+  const isLoggedIn = session?.user!
 
-  /*   const { data: session } = useSession() */
+  const loggedInUserId = session?.user.id */
 
   const { data: lastReviews } = useQuery<FullReview[]>(
     ['ratings'],
@@ -50,6 +48,18 @@ export default function Home() {
     },
   )
 
+  /*   const { data: userLatestReview } = useQuery<FullReview>(
+    ['lastUserRating'],
+    async () => {
+      const { data } = await api.get('/reviews/userLatestReview', {
+        params: {
+          userId: loggedInUserId,
+        },
+      })
+      return data || null
+    },
+  ) */
+
   return (
     <Container>
       <Sidebar />
@@ -59,12 +69,19 @@ export default function Home() {
         </h2>
         <MainFeed>
           <MostRecent>
-            {/* {isLoggedIn ? <span>Sua última leitura</span> : null} */}
+            {/*             {userLatestReview ? (
+              <UserLatestDiv>
+                <span>Sua última leitura</span>
+                <Review
+                  key={userLatestReview.id}
+                  oneReview={userLatestReview}
+                />
+              </UserLatestDiv>
+            ) : null} */}
             <span>Avaliações mais recentes</span>
             {lastReviews?.map((singleReview) => {
               return <Review key={singleReview.id} oneReview={singleReview} />
             })}
-            {/* clamplines or react-show-more-text for read more */}
           </MostRecent>
           <MostPopular>
             <PopularHeader>
@@ -88,29 +105,9 @@ export default function Home() {
                 bookTitle={books.name}
                 thisBookId={books.id}
                 UserReviewForm={<UserReviewForm thisBookId={books.id} />}
+                UserAuthSignIn={<UserAuthSignIn />}
               />
             ))}
-
-            {/* <BookBoxComponent
-              type="medium"
-              UserReviewForm={<UserReviewForm />}
-            />
-            <BookBoxComponent
-              type="medium"
-              UserReviewForm={<UserReviewForm />}
-            />
-            <BookBoxComponent
-              type="medium"
-              UserReviewForm={<UserReviewForm />}
-            />
-            <BookBoxComponent
-              type="medium"
-              UserReviewForm={<UserReviewForm />}
-            />
-            <BookBoxComponent
-              type="medium"
-              UserReviewForm={<UserReviewForm />}
-            /> */}
           </MostPopular>
         </MainFeed>
       </HomeContainer>

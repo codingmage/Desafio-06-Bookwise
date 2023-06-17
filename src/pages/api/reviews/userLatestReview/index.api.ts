@@ -10,18 +10,21 @@ export default async function handler(
     return res.status(405).end()
   }
 
-  const userId = String(req.query.userId)
-  const bookId = String(req.query.bookId)
+  const thisUserId = String(req.query.userId)
 
-  const ownReview = await prisma.rating.findFirst({
+  const userLatestReview = await prisma.rating.findFirst({
     where: {
-      book_id: bookId,
-      user_id: userId,
+      user_id: thisUserId,
+    },
+
+    orderBy: {
+      created_at: 'desc',
     },
     include: {
       user: true,
+      book: true,
     },
   })
 
-  return res.status(200).json(ownReview)
+  return res.status(200).json(userLatestReview)
 }

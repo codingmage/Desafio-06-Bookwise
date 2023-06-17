@@ -99,8 +99,6 @@ export default function Profile() {
 
   const totalAuthors = new Set(authorArray).size
 
-  /* console.log(categoriesOnBooksArray) */
-
   const [categoriesList, setCategoriesList] = useState<string[]>([])
 
   useEffect(() => {
@@ -146,47 +144,6 @@ export default function Profile() {
       topCategory(categoriesList)
     }
   }, [categoriesList])
-
-  /*   function findMostFrequent(arr: string[]) {
-    const map = {} as any
-    let mostFrequentElement = arr[0]
-
-    for (let i = 0; i < arr.length; i++) {
-      if (!map[arr[i]]) {
-        map[arr[i]] = 1
-      } else {
-        ++map[arr[i]]
-        if (map[arr[i]] > map[mostFrequentElement]) {
-          mostFrequentElement = arr[i]
-        }
-      }
-    }
-    setUserTopCategory(mostFrequentElement)
-  }
-
-  useEffect(() => {
-    if (categoriesList.length > 0) {
-      findMostFrequent(categoriesList)
-    }
-  }, [categoriesList])
-
-  console.log(categoriesList) */
-
-  /*   const categoriesOnBooksArray = thisProfileReviews?.map((categories) =>
-  categories.book.categories.map((category) => {
-    return category.category.name
-  }),
-)
-
-  for (const category of categoriesOnBooksArray) {
-    console.log(category)
-  } */
-
-  /*   const [totalAuthors, setTotalAuthors] = useState<string[]>([])
-
-  for (let i = 0; i < totalBooks; i++) {
-    setTotalAuthors([...totalAuthors, 'o autor novo'])
-  } */
 
   const [filteredBooks, setFilteredBooks] = useState<FullProfileReview[]>([])
   const [profileSearchInput, setProfileSearchInput] = useState<String>('')
