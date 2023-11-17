@@ -33,6 +33,7 @@ export const BookBox = styled('div', {
 
   display: 'flex',
   gap: '$4',
+  cursor: 'pointer',
 
   img: {
     borderRadius: '$sm',
